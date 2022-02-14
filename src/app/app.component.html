@@ -1,0 +1,15 @@
+<div class="root-container" data-theme="dark">
+  <app-navbar></app-navbar>
+  <router-outlet></router-outlet>
+</div>
+
+<val-default-errors>
+  <ng-template valError="required" let-label>{{ label || ('validation.thisField' | translate) }} {{'validation.isRequired' | translate}}</ng-template>
+  <ng-template valError="email" let-label>{{ label || ('validation.thisField' | translate) }} {{'validation.validEmailAddress' | translate}}</ng-template>
+  <ng-template valError="min" let-label let-error="error">{{ label || ('validation.thisField' | translate) }} {{'validation.greaterThan' | translate}} {{error.min}}</ng-template>
+  <ng-template valError="max" let-label let-error="error">{{ label || ('validation.thisField' | translate) }} {{'validation.lessThan' | translate}} {{error.max}}</ng-template>
+  <ng-template valError="minlength" let-label let-error="error">{{ label || ('validation.thisField' | translate) }} {{'validation.containsAtLeast' | translate}} {{error.requiredLength}} {{'validation.chars' | translate}}</ng-template>
+  <ng-template valError="pattern" let-label let-error="error">{{ label || ('validation.thisField' | translate) }} {{'validation.matchPattern' | translate}}</ng-template>
+  <ng-template valError="email_mismatch" let-label let-error="error">{{ label || ('validation.thisField' | translate) }} {{'validation.matchEmail' | translate}}</ng-template>
+  <ng-template valError="password_mismatch" let-label let-error="error">{{ label || ('validation.thisField' | translate) }} {{'validation.matchPassword' | translate}}</ng-template>
+</val-default-errors>

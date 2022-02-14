@@ -1,0 +1,27 @@
+<div class="custom-container login-container">
+  <form [formGroup]="loginForm">
+    <div class="field-container">
+      <label for="email">{{ 'labels.email' | translate }}</label>
+      <input id="email"
+             type="email"
+             formControlName="email"
+             class="custom-input"
+             placeholder="{{ 'labels.email' | translate }}"
+             name="email">
+
+      <val-errors controlName="email" label="{{ 'labels.email' | translate }}"></val-errors>
+    </div>
+
+    <div class="field-container mt-4">
+      <label>{{ 'labels.password' | translate }}</label>
+      <input id="password"
+             type="password"
+             formControlName="password"
+             class="custom-input"
+             placeholder="{{ 'labels.password' | translate }}"
+             name="password">
+
+      <val-errors controlName="password" label="{{ 'labels.password' | translate }}"></val-errors>
+    </div>
+  </form>
+</div>

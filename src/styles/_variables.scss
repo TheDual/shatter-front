@@ -1,0 +1,21 @@
+:root {
+  --spacing-sm: 5px;
+  --spacing-md: 10px;
+  --spacing-lg: 15px;
+
+  [data-theme="dark"] {
+    --color-bg: #121212;
+    --color-bg-dark: #000;
+    --color-primary: black;
+    --color-font-primary: #6e6e6e;
+    --color-font-secondary: #C6C6CD;
+    --color-gray-dark: #6e6e6e;
+    --color-gray-light: #bdbdbd;
+  }
+
+  [data-theme="light"] {
+    --color-bg: white;
+    --color-primary: white;
+    --color-font-primary: black;
+  }
+}

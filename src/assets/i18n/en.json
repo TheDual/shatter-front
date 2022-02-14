@@ -1,0 +1,20 @@
+{
+  "labels": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "password": "Password"
+  },
+  "validation" : {
+    "thisField": "This Field",
+    "isRequired": "is required",
+    "validEmailAddress": "must be a valid email address",
+    "greaterThan": "must be greater than",
+    "lessThan": "must be less than",
+    "containsAtLeast": "must contains at least",
+    "matchPattern": "must match pattern",
+    "chars": "chars",
+    "matchEmail": "must match email address",
+    "matchPassword": "must match password"
+  }
+}

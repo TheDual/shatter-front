@@ -1,0 +1,50 @@
+:host {
+  width: 100%;
+  background-color: var(--color-bg-dark);
+  height: 80px;
+  color: white;
+  font-weight: bold;
+  padding: var(--spacing-lg) 40px;
+
+  .navbar-container {
+    height: 100%;
+    & > div {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      &:last-child {
+        justify-content: end ;
+
+      }
+    }
+
+
+    .logo-container {
+      .logo-text {
+        font-size: 1.3rem;
+        letter-spacing: .075rem;
+      }
+      img {
+        width: 60px;
+        max-height: 80px;
+      }
+    }
+
+    .profile-details-container {
+      img {
+        width: 50px;
+        max-height: 80px;
+        border-radius: 50%;
+      }
+      .username-text {
+
+      }
+
+
+    }
+
+    .button-container {
+
+    }
+  }
+}
