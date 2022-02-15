@@ -7,17 +7,17 @@
     </div>
   </div>
 
-<!--  <div class="profile-details-container d-flex align-items-center">-->
-<!--    <img src="/assets/images/proile-pic.jpg" />-->
-<!--    <div class="username-text ml-4">Michał</div>-->
-<!--  </div>-->
+  <div class="button-container d-flex align-items-center" >
+    <ng-container *ngIf="!user else loggedIn">
+      <button class="custom-button" [routerLink]=[SCREENS.LOGIN]>{{ 'buttons.login' | translate }}</button>
+      <button class="ml-2 custom-button custom-button-secondary" [routerLink]=[SCREENS.REGISTER]>{{ 'buttons.register' | translate }}</button>
+    </ng-container>
 
-  <div class="button-container d-flex align-items-center">
-    <button class="custom-button" [disabled]="true">Login</button>
-    <button class="ml-2 custom-button custom-button-secondary" [disabled]="true">Register</button>
-  </div>
+    <ng-template #loggedIn>
+      <button class="custom-button" (click)="logout()">{{ 'buttons.logout' | translate }}</button>
+    </ng-template>
+   </div>
+
 </div>
 
-<ng-template>
 
-</ng-template>

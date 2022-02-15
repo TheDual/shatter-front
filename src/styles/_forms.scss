@@ -1,13 +1,35 @@
 .field-container {
+  font-size: 1rem;
+
   label, input {
     display: block;
+    width: 100%;
   }
   label {
-    font-size: 1.2rem;
+    font-size: 1.2em;
+    margin-bottom: 0 !important;
   }
   input {
-    font-size: 1.1rem;
+    font-size: 1.1em;
   }
+}
+
+span.input-border-animated {
+  position: relative;
+  display: none;
+  width: 100%;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top:0;
+    width: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top: 2px solid var(--color-secondary);
+    animation: border_animation .7s ease-in-out alternate infinite;
+  }
+
 }
 
 input[type='text'],
@@ -16,19 +38,28 @@ input[type='password'] {
   min-width: 120px;
   background: transparent;
   border: none;
-  border-bottom: 1px solid #FFF;
   color: var(--color-font-primary);
   height: 40px;
   font-size: 1.1rem;
 
+  position: relative;
+  border-bottom: 1px solid #FFF;
+
+  &:focus {
+    border: none;
+
+    &+span.input-border-animated {
+      display: block;
+    }
+  }
+
   &:focus {
     outline: none;
-
+    border: none;
   }
 }
 
 input[type="button"], button.custom-button {
-
   background-color: transparent;
   color: #FFF;
   border: 2px solid #FFF;
@@ -41,33 +72,9 @@ input[type="button"], button.custom-button {
     cursor: not-allowed;
   }
 
-
-  //background-color: var(--button-background-color);
-  //color: var(--button-text-color);
-  //border: 1px solid var(--button-border-color);
-  //font-size: 0.8em;
-  //min-width: 180px;
-  //height: 45px;
-  //border-radius: 50px;
-  ////box-shadow: 0 1px 1px 0 #2fa8c5;
-  //padding: 0 20px;
-  //outline: none;
-  //
-  //@media screen and (max-width: 568px) {
-  //  font-size: 1em;
-  //  height: 35px;
-  //}
-  //
-  //&[disabled] {
-  //  background-color: var(--fourth-font-color);
-  //  border-color: var(--fourth-font-color);
-  //  color: white;
-  //  cursor: not-allowed;
-  //}
-  //
-  //&.danger {
-  //  background-color: $danger;
-  //}
+  &:hover {
+    filter: invert(20%);
+  }
 
 }
 
@@ -75,5 +82,32 @@ button.custom-button-secondary {
   background-color: #FFF;
   border-color: #FFF;
   color: #000;
+
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-secondary);
+
+  &:hover {
+    text-decoration: none !important;
+    color: var(--color-secondary-light) !important;
+    transition: color .2s ease-out;
+  }
+}
+
+val-errors {
+  color: var(--color-danger);
+  font-size: .9em;
+}
+
+
+@keyframes border_animation {
+  0% {
+    width: 10%;
+  }
+  100% {
+    width: 100%;
+  }
 
 }

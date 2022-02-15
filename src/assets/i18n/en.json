@@ -5,6 +5,14 @@
     "email": "Email",
     "password": "Password"
   },
+  "buttons": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "mocks": {
+    "forgotPassword": "Forgot Password"
+  },
   "validation" : {
     "thisField": "This Field",
     "isRequired": "is required",

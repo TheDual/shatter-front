@@ -1,0 +1,63 @@
+<div class="custom-container register-container">
+  <div class="header-container">
+    <h3>{{ 'buttons.register' | translate }}</h3>
+  </div>
+
+  <form [formGroup]="registerForm" (ngSubmit)="submit()">
+    <div class="field-container">
+      <label>{{ 'labels.email' | translate }}</label>
+      <input id="email"
+             type="text"
+             formControlName="email"
+             class="custom-input"
+             placeholder="{{ 'labels.email' | translate }}"
+             name="email">
+      <span class="input-border-animated"></span>
+
+      <val-errors controlName="email" label="{{ 'labels.email' | translate }}"></val-errors>
+    </div>
+
+    <div class="field-container">
+      <label>{{ 'labels.password' | translate }}</label>
+      <input id="password"
+             type="password"
+             formControlName="password"
+             class="custom-input"
+             placeholder="{{ 'labels.password' | translate }}"
+             name="password">
+      <span class="input-border-animated"></span>
+
+      <val-errors controlName="password" label="{{ 'labels.password' | translate }}"></val-errors>
+    </div>
+
+    <div class="field-container">
+      <label>{{ 'labels.firstName' | translate }}</label>
+      <input id="first_name"
+             type="text"
+             formControlName="first_name"
+             class="custom-input"
+             placeholder="{{ 'labels.firstName' | translate }}"
+             name="first_name">
+      <span class="input-border-animated"></span>
+
+      <val-errors controlName="first_name" label="{{ 'labels.firstName' | translate }}"></val-errors>
+    </div>
+
+    <div class="field-container">
+      <label>{{ 'labels.lastName' | translate }}</label>
+      <input id="last_name"
+             type="text"
+             formControlName="last_name"
+             class="custom-input"
+             placeholder="{{ 'labels.lastName' | translate }}"
+             name="last_name">
+      <span class="input-border-animated"></span>
+
+      <val-errors controlName="last_name" label="{{ 'labels.lastName' | translate }}"></val-errors>
+    </div>
+
+    <div class="buttons-container d-flex justify-content-center">
+      <button type="submit" class="custom-button">{{ 'buttons.register' | translate }}</button>
+    </div>
+  </form>
+</div>

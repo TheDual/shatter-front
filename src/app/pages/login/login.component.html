@@ -1,13 +1,18 @@
 <div class="custom-container login-container">
-  <form [formGroup]="loginForm">
+  <div class="header-container">
+    <h3>{{ 'buttons.login' | translate }}</h3>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
     <div class="field-container">
       <label for="email">{{ 'labels.email' | translate }}</label>
       <input id="email"
-             type="email"
+             type="text"
              formControlName="email"
              class="custom-input"
              placeholder="{{ 'labels.email' | translate }}"
              name="email">
+      <span class="input-border-animated"></span>
 
       <val-errors controlName="email" label="{{ 'labels.email' | translate }}"></val-errors>
     </div>
@@ -20,8 +25,14 @@
              class="custom-input"
              placeholder="{{ 'labels.password' | translate }}"
              name="password">
+      <span class="input-border-animated"></span>
 
       <val-errors controlName="password" label="{{ 'labels.password' | translate }}"></val-errors>
+    </div>
+
+    <div class="button-container d-flex align-items-center justify-content-center">
+      <button type="submit" class="custom-button">{{ 'buttons.login' | translate }}</button>
+      <a class="forgot-password-text pointer ml-2" >{{ 'mocks.forgotPassword' | translate }}?</a>
     </div>
   </form>
 </div>

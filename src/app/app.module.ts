@@ -12,8 +12,12 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ValdemortModule } from 'ngx-valdemort';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegisterComponent } from './pages/register/register.component';
+import { TokenInterceptor } from './services/token.interceptor';
 
 
 localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
@@ -24,11 +28,14 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
     AppComponent,
     NavbarComponent,
     MainComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
+    CommonModule,
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
@@ -40,12 +47,18 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
         deps: [HttpClient]
       }
     }),
-    ValdemortModule
+    ValdemortModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {
       provide: LOCALE_ID,
       useValue: localStorage?.getItem('language') || 'en-US'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
     },
     // {
     //   provide: HTTP_INTERCEPTORS,
