@@ -1,8 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseModelService } from './base-model.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import UserModel from '../models/user.model';
 import enviroment from '../enviroment';
+import { convertToBlob } from '../constants/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,12 @@ export class AuthService extends BaseModelService {
       const token = localStorage.getItem('auth');
       if (token) {
         this.getMe()
+          .pipe(map(data => {
+            if (data?.profile?.profile_picture?.data) {
+              data['profile']['profile_picURL'] = URL.createObjectURL(convertToBlob(data.profile?.profile_picture.data));
+            }
+            return data;
+          }))
           .subscribe({
             next: data => {
               this.user.next(data);

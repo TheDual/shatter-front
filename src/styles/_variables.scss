@@ -13,13 +13,16 @@
     --color-primary: black;
     --color-font-primary: #6e6e6e;
     --color-font-secondary: #C6C6CD;
-    --color-gray-dark: #6e6e6e;
+    --color-gray-dark: #6e6e6e; //#dae0e5
     --color-gray-light: #bdbdbd;
+    --color-font-default: #FFF;
   }
 
   [data-theme="light"] {
     --color-bg: white;
     --color-primary: white;
     --color-font-primary: black;
+    --color-font-default: #000;
+
   }
 }

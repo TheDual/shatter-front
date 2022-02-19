@@ -1,1 +1,4 @@
-<p>main works!</p>
+<ng-container *ngIf="post">
+  image
+  <img [src]="post.imageURL | safeUrl" >
+</ng-container>

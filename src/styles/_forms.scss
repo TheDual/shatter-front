@@ -1,7 +1,7 @@
 .field-container {
   font-size: 1rem;
 
-  label, input {
+  label, input, ng-select {
     display: block;
     width: 100%;
   }
@@ -9,7 +9,7 @@
     font-size: 1.2em;
     margin-bottom: 0 !important;
   }
-  input {
+  input, ng-select{
     font-size: 1.1em;
   }
 }
@@ -34,7 +34,8 @@ span.input-border-animated {
 
 input[type='text'],
 input[type='email'],
-input[type='password'] {
+input[type='password'],
+ng-select {
   min-width: 120px;
   background: transparent;
   border: none;

@@ -1,0 +1,30 @@
+.modal-dialog {
+  .modal-content {
+    background-color: var(--color-bg-dark);
+    border: 1px solid var(--color-secondary);
+    color: var(--color-font-secondary);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    #modal-container {
+      width: 100%;
+    }
+
+    .modal-header {
+      border-bottom: 1px solid var(--color-font-primary);
+    }
+
+
+
+
+    .custom-modal-header {
+      font-size: 1.5rem;
+      color: var(--color-font-default);
+      font-weight: bold;
+    }
+  }
+}
+

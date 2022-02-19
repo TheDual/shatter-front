@@ -1,0 +1,36 @@
+<div class="profile-container d-flex justify-content-between mt-4" *ngIf="user">
+  <div class="custom-container profile-data-container">
+    <div class="img-container">
+      <img [src]="(user?.profile?.profile_picURL | safeUrl) || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
+    </div>
+
+    <div class="profile-data">
+      <div class="field-container">
+        <label>{{ 'labels.fullName' | translate }}</label>
+        <div>{{user.first_name | titlecase}} {{user.last_name | titlecase}}</div>
+      </div>
+
+      <div class="field-container">
+        <label>{{ 'labels.email' | translate }}</label>
+        <div>{{user.profile?.profile_email || '-'}}</div>
+      </div>
+
+      <div class="field-container">
+        <label>{{ 'labels.gender' | translate }}</label>
+        <div>{{user?.profile?.gender != null ? this.genderTypes[user.profile!.gender] : '-'}}</div>
+      </div>
+
+      <div class="field-container">
+        <label>{{ 'labels.dateOfBirth' | translate }}</label>
+        <div>{{(user.profile?.birth_date | date) || '-'}}</div>
+      </div>
+    </div>
+    <i class="fa-solid fa-user-pen pointer edit-icon hover-secondary"
+       (click)="openEditProfileDataModal()" appTooltip [value]="'mocks.changeProfileData' | translate"></i>
+
+  </div>
+  <div class="spacer"></div>
+  <div class="custom-container user-posts-container">
+    dsadasd
+  </div>
+</div>

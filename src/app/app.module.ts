@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './widgets/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MainComponent } from './pages/main/main.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
@@ -18,7 +18,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './pages/register/register.component';
 import { TokenInterceptor } from './services/token.interceptor';
-
+import { SafeUrlPipe } from './services/safe-url.pipe';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { EditProfileDataModalComponent } from './widgets/edit-profile-data-modal/edit-profile-data-modal.component';
+import { TooltipDirective } from './services/tooltip.directive';
+import { UploadDirective } from './services/upload.directive';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
 
@@ -29,7 +34,12 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
     NavbarComponent,
     MainComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SafeUrlPipe,
+    ProfileComponent,
+    EditProfileDataModalComponent,
+    TooltipDirective,
+    UploadDirective
   ],
   imports: [
     BrowserModule,
@@ -48,7 +58,9 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
       }
     }),
     ValdemortModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgbDatepickerModule,
+    NgSelectModule
   ],
   providers: [
     {
@@ -59,7 +71,7 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    },
+    }
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: TokenInterceptor,

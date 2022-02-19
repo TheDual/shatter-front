@@ -1,9 +1,9 @@
-<div class="root-container" data-theme="dark">
+<div class="root-container">
   <app-navbar></app-navbar>
   <router-outlet></router-outlet>
 </div>
 
-<val-default-errors>
+<val-default-errors> This Field
   <ng-template valError="required" let-label>{{ label || ('validation.thisField' | translate) }} {{'validation.isRequired' | translate}}</ng-template>
   <ng-template valError="email" let-label>{{ label || ('validation.thisField' | translate) }} {{'validation.validEmailAddress' | translate}}</ng-template>
   <ng-template valError="min" let-label let-error="error">{{ label || ('validation.thisField' | translate) }} {{'validation.greaterThan' | translate}} {{error.min}}</ng-template>

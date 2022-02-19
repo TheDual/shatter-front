@@ -3,15 +3,24 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
-    "password": "Password"
+    "confirmEmail": "Confirm Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "fullName": "Full Name"
   },
   "buttons": {
     "login": "Login",
     "register": "Register",
-    "logout": "Logout"
+    "logout": "Logout",
+    "profile": "Profile",
+    "settings": "Settings"
   },
   "mocks": {
-    "forgotPassword": "Forgot Password"
+    "forgotPassword": "Forgot Password",
+    "uploadProfileImage": "Upload Profile Image",
+    "changeProfileData": "Change Profile Data"
   },
   "validation" : {
     "thisField": "This Field",

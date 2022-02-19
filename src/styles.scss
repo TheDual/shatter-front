@@ -2,6 +2,11 @@
 @import "styles/variables";
 @import "styles/fonts";
 @import "styles/forms";
+@import "styles/toasts";
+@import "styles/modals";
+@import "styles/date-picker";
+@import "styles/select";
+
 
 body {
   box-sizing: border-box;
@@ -30,4 +35,57 @@ body {
     font-weight: bold;
   }
   margin-bottom: 30px;
+}
+
+.hover {
+  &-primary {
+    cursor: pointer;
+    &:hover {
+      color: var(--color-font-default) !important;
+      transition: color .1s ease-out;
+    }
+  }
+
+  &-secondary {
+    cursor: pointer;
+    &:hover {
+      color: var(--color-secondary-light) !important;
+      transition: color .1s ease-out;
+    }
+  }
+
+}
+
+.drop-overlay {
+
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 100%;
+
+    background-color: rgba(0, 0, 0, .6);
+  }
+
+  &::before {
+    position: absolute;
+    content: 'DROP HERE';
+    left: 50%;
+    top: 50%;
+    font-weight: bold;
+    color: var(--color-font-secondary);
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+  }
+}
+
+
+.file-input {
+  display: none;
 }

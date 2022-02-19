@@ -1,0 +1,72 @@
+ngb-datepicker {
+  border: 1px solid var(--color-secondary) !important;
+  * {
+    user-select: none;
+  }
+  .ngb-dp-header {
+    background-color: var(--color-bg-dark);
+
+    span.ngb-dp-navigation-chevron {
+      color: var(--color-secondary-light);
+    }
+
+    .ngb-dp-navigation-select {
+      .custom-select {
+        background-color: var(--color-bg);
+        color: var(--color-font-secondary);
+        margin-bottom: 2px;
+        max-height: 100px;
+
+        &:first-child {
+          margin-right: 5px;
+        }
+        &:focus {
+          outline: none;
+          border: 1px solid var(--color-secondary);
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+  .ngb-dp-content {
+    ngb-datepicker-month {
+      background-color: var(--color-bg);
+
+      .ngb-dp-weekdays {
+        background-color: var(--color-bg-dark);
+        color: var(--color-secondary);
+      }
+
+      .ngb-dp-day {
+        .btn-light {
+          color: var(--color-font-secondary);
+
+          &:hover {
+            background-color: var(--color-gray-dark);
+            color: var(--color-font-default);
+          }
+
+          &.bg-primary {
+            color: var(--color-font-default);
+            background-color: var(--color-secondary) !important;
+          }
+
+          &.text-muted:hover {
+            color: var(--color-font-secondary) !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Sizing
+  .ngb-dp-weekday{
+    width: 2.5rem;
+  }
+  .ngb-dp-day , .ngb-dp-day > div {
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+  }
+}

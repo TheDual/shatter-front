@@ -18,6 +18,19 @@
     </div>
 
     <div class="field-container">
+      <label>{{ 'labels.confirmEmail' | translate }}</label>
+      <input id="confirm_email"
+             type="text"
+             formControlName="confirm_email"
+             class="custom-input"
+             placeholder="{{ 'labels.confirmEmail' | translate }}"
+             name="confirm_email">
+      <span class="input-border-animated"></span>
+
+      <val-errors controlName="confirm_email" label="{{ 'labels.confirmEmail' | translate }}"></val-errors>
+    </div>
+
+    <div class="field-container">
       <label>{{ 'labels.password' | translate }}</label>
       <input id="password"
              type="password"
@@ -28,6 +41,19 @@
       <span class="input-border-animated"></span>
 
       <val-errors controlName="password" label="{{ 'labels.password' | translate }}"></val-errors>
+    </div>
+
+    <div class="field-container">
+      <label>{{ 'labels.confirmPassword' | translate }}</label>
+      <input id="confirm_password"
+             type="password"
+             formControlName="confirm_password"
+             class="custom-input"
+             placeholder="{{ 'labels.confirmPassword' | translate }}"
+             name="confirm_password">
+      <span class="input-border-animated"></span>
+
+      <val-errors controlName="confirm_password" label="{{ 'labels.confirmPassword' | translate }}"></val-errors>
     </div>
 
     <div class="field-container">

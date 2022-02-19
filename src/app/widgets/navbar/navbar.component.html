@@ -1,20 +1,36 @@
 <div class="navbar-container d-flex justify-content-between align-items-center">
   <div>&nbsp;</div>
-  <div class="logo-container d-flex align-items-center pointer">
+  <div class="logo-container d-flex align-items-center pointer" [routerLink]="[SCREENS.MAIN]">
     <img src="/assets/images/logo.png">
     <div class="logo-text ml-3">
       Shatter
     </div>
   </div>
 
-  <div class="button-container d-flex align-items-center" >
+  <div class="right-container d-flex align-items-center ml-3" >
     <ng-container *ngIf="!user else loggedIn">
       <button class="custom-button" [routerLink]=[SCREENS.LOGIN]>{{ 'buttons.login' | translate }}</button>
       <button class="ml-2 custom-button custom-button-secondary" [routerLink]=[SCREENS.REGISTER]>{{ 'buttons.register' | translate }}</button>
     </ng-container>
 
     <ng-template #loggedIn>
-      <button class="custom-button" (click)="logout()">{{ 'buttons.logout' | translate }}</button>
+      <div class="logged-in d-flex align-items-center">
+        <div class="img-container pointer">
+          <img [src]="(user?.profile?.profile_picURL | safeUrl) || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
+        </div>
+        <div class="dropdown-container pointer" (click)="toggleDropdown()" [ngClass]="showDropdown ? 'dropdown-show' : 'dropdown-hide'">
+          <div class="first-name-text user-select-none">
+            {{ user?.first_name | titlecase }}
+          </div>
+
+          <div class="menu-items  user-select-none">
+            <div class="menu-item">{{ 'buttons.profile' | translate }}</div>
+            <div class="menu-item">{{ 'buttons.settings' | translate }}</div>
+            <div class="menu-item" (click)="logout()">{{ 'buttons.logout' | translate }}</div>
+          </div>
+
+        </div>
+      </div>
     </ng-template>
    </div>
 

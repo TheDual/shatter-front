@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { emailMatchValidator, passwordMatchValidator } from '../../constants/utils';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
               private router: Router) {
     this.registerForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern(emailRegexp)]),
+      confirm_email: new FormControl('', [Validators.required, emailMatchValidator()]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirm_password: new FormControl('', [Validators.required, passwordMatchValidator()]),
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', [Validators.required])
     });
@@ -38,7 +41,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: value => {
-          console.log(value);
           this.toastrService.success('Success! You may now log in');
           this.router.navigate([SCREENS.LOGIN]);
         },

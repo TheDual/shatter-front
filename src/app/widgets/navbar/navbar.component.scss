@@ -4,7 +4,7 @@
   height: 80px;
   color: white;
   font-weight: bold;
-  padding: var(--spacing-lg) 40px;
+  padding: 0 40px;
 
   .navbar-container {
     height: 100%;
@@ -31,20 +31,104 @@
     }
 
     .profile-details-container {
+
       img {
         width: 50px;
         max-height: 80px;
         border-radius: 50%;
       }
-      .username-text {
+
+    }
+
+    .right-container {
+      height: inherit;
+
+      .logged-in {
+        height: fit-content;
+
+        .img-container {
+          height: 100%;
+          border-radius: 100%;
+          border: 2.5px solid var(--color-secondary);
+          //box-shadow: 0 0 2.5px 2.5px var(--color-secondary);
+
+          img {
+            object-fit: cover;
+            width: 60px;
+            max-height: 60px;
+            border-radius: 100%;
+          }
+        }
+
+        .dropdown-container {
+          margin-left: var(--spacing-md);
+          position: relative;
+          min-width: 150px;
+          border-bottom: 1px solid var(--color-secondary);
+          font-size: 1.2rem;
+
+          .first-name-text {
+            padding: 2px 2px 2px var(--spacing-md);
+          }
+
+          &::after {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 700;
+            content: '\f0d7';
+            position: absolute;
+            height: 100%;
+            right: 2px;
+            top: 50%;
+            display: flex;
+            align-content: center;
+            transform: translateY(-50%);
+
+            transition: transform .2s ease-out;
+          }
+
+          .menu-items {
+            position: absolute;
+            max-height: 0;
+            overflow-y: hidden;
+            width: 100%;
+            background-color: var(--color-bg-dark);
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom: 1.2px solid var(--color-secondary);
+
+
+            transition: max-height .2s ease-out;
+
+            .menu-item {
+              padding: 5px 0 5px var(--spacing-md);
+              cursor: pointer;
+
+              &:hover {
+                background-color: var(--color-bg);
+                transition: background-color .2s ease-out;
+              }
+
+            }
+
+          }
+
+        }
 
       }
 
-
     }
 
-    .button-container {
+  }
 
-    }
+}
+
+
+.dropdown-show {
+  &::after {
+    transform: translateY(-50%) rotate(180deg) !important;
+  }
+
+  .menu-items {
+    max-height: 200px !important;
   }
 }

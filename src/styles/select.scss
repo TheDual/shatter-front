@@ -1,0 +1,122 @@
+ng-select {
+  cursor: pointer;
+  &.ng-select-disabled {
+    .ng-select-container {
+      cursor: not-allowed;
+      > * {
+        pointer-events: none;
+      }
+    }
+  }
+  .ng-select-container {
+    padding-left: 0 !important;
+    display: flex;
+    align-items: center;
+
+    .ng-clear-wrapper {
+      margin-right: 5px;
+
+      .ng-clear {
+        color: var(--color-font-default);
+        font-weight: bold;
+      }
+    }
+
+  }
+
+  .ng-has-value .ng-placeholder {
+    display: none;
+  }
+
+}
+
+.ng-value-container {
+  padding-left: 0 !important;
+
+  .ng-input {
+    top: 10px !important;
+    padding-left: 0 !important;
+
+    input {
+      margin-bottom: 0 !important;
+      padding-left: 0 !important;
+    }
+  }
+}
+
+.ng-select {
+  &.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+    //border-color: $third-color !important;
+  }
+}
+
+ng-select {
+  &.ng-select-disabled > .ng-select-container {
+    background-color: #eaeaea !important;
+  }
+}
+
+.ng-select.ng-select-single {
+  .ng-select-container {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    height: 40px;
+    padding-left: 15px;
+
+    input {
+      height: initial;
+    }
+
+    .ng-placeholder {
+      font-weight: lighter;
+    }
+
+
+  }
+
+  .ng-option {
+    font-weight: lighter;
+    background-color: var(--color-bg-dark);
+  }
+}
+
+.ng-dropdown-panel-items {
+  outline: 1px solid var(--color-bg-dark);
+  border-bottom: 2px solid var(--color-font-default);
+
+  .ng-option:hover {
+    background-color: var(--color-bg);
+    color: var(--color-font-secondary);
+  }
+}
+
+.ng-select.disable-arrow .ng-arrow-wrapper .ng-arrow {
+  display: none;
+}
+
+.ng-select.disable-dropdown ng-dropdown-panel {
+  display: none;
+}
+
+.ng-select.disable-clear-all .ng-clear-wrapper {
+  display: none;
+}
+
+.ng-select .ng-arrow-wrapper .ng-arrow {
+  display: none;
+}
+
+.ng-select span.ng-arrow-wrapper::before {
+  content: '\f0d7';
+  display: inline-block;
+  font: normal normal bold 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  color: var(--color-font-default);
+  transition: transform .2s ease-in-out;
+}
+
+.ng-select.ng-select-opened span.ng-arrow-wrapper::before {
+  transform: rotate(180deg);
+}

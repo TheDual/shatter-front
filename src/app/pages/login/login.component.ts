@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Subject, takeUntil } from 'rxjs';
+import { map, Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { emailRegexp, SCREENS } from '../../constants/constants';
 import { ToastrService } from 'ngx-toastr';
+import { convertToBlob } from '../../constants/utils';
 
 
 @Component({
@@ -33,10 +34,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.invalid) return;
 
     this.authService.login(this.loginForm.value)
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this.unsubscribe$),
+        map(data => {
+          if (data?.user?.profile?.profile_picture?.data) {
+            data['user']['profile']['profile_picURL'] = URL.createObjectURL(convertToBlob(data.user?.profile?.profile_picture.data));
+          }
+          return data;
+
+        }))
       .subscribe({
         next: data => {
-          console.log(data);
           this.authService.user.next(data.user);
           localStorage.setItem('auth', data.token);
           this.router.navigate([SCREENS.MAIN]);

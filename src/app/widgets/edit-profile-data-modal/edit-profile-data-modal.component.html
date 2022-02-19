@@ -1,0 +1,123 @@
+<div class="modal-container">
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <div class="custom-modal-header">Edit Profile Data</div>
+    <div class="close-icon">
+      <i class="fa-solid fa-xmark hover-primary" (click)="close()"></i>
+    </div>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="userDataForm" (ngSubmit)="submit()">
+      <div class="field-container upload-container">
+        <div class="img-container" appUpload (onFileDropped)="onFileDropped($event)">
+          <img [src]="(imageURL | safeUrl) || '/assets/images/mock_avatar.png'"
+               alt="User Profile Photo" >
+        </div>
+
+        <div class="clear-profile-pic-icon" (click)="clearProfilePicture()">
+          <i class="fa-solid fa-xmark hover-secondary"
+             appTooltip [value]="'Remove Profile Picture'"></i>
+        </div>
+
+        <div class="upload-icon">
+          <i class="fa-solid fa-arrow-up-from-bracket hover-secondary"
+             (click)="fileUpload.click()"
+             appTooltip [value]="'mocks.uploadProfileImage' | translate">
+          </i>
+        </div>
+      </div>
+
+      <div class="normal-fields-container">
+        <div class="field-container">
+          <label>{{ 'labels.firstName' | translate }}</label>
+          <input id="first_name"
+                 type="text"
+                 formControlName="first_name"
+                 class="custom-input"
+                 placeholder="{{ 'labels.firstName' | translate }}"
+                 name="first_name">
+          <span class="input-border-animated"></span>
+
+          <val-errors controlName="first_name" label="{{ 'labels.firstName' | translate }}"></val-errors>
+        </div>
+
+        <div class="field-container">
+          <label>{{ 'labels.lastName' | translate }}</label>
+          <input id="last_name"
+                 type="text"
+                 formControlName="last_name"
+                 class="custom-input"
+                 placeholder="{{ 'labels.lastName' | translate }}"
+                 name="last_name">
+          <span class="input-border-animated"></span>
+
+          <val-errors controlName="last_name" label="{{ 'labels.lastName' | translate }}"></val-errors>
+        </div>
+
+        <div class="field-container">
+          <label>{{ 'labels.email' | translate }}</label>
+          <input id="profile_email"
+                 type="email"
+                 formControlName="profile_email"
+                 class="custom-input"
+                 placeholder="{{ 'labels.email' | translate }}"
+                 name="email">
+          <span class="input-border-animated"></span>
+
+          <val-errors controlName="profile_email" label="{{ 'labels.email' | translate }}"></val-errors>
+        </div>
+
+        <div class="field-container">
+          <label>{{ 'labels.gender' | translate }}</label>
+          <ng-select [items]="genderTypes"
+                     formControlName="gender"
+                     notFoundText="No genders found"
+                     bindLabel="name"
+                     bindValue="id"
+                     placeholder="Select Gender"
+                     [searchable]="false"
+          >
+          </ng-select>
+
+          <val-errors controlName="gender" label="{{ 'labels.gender' | translate }}"></val-errors>
+        </div>
+
+        <div class="field-container">
+          <label>{{ 'labels.dateOfBirth' | translate }}</label>
+          <div class="position-relative">
+            <input id="birth_date"
+                   type="text"
+                   formControlName="birth_date"
+                   class="custom-input"
+                   placeholder="{{ 'labels.dateOfBirth' | translate }}"
+                   name="date_of_birth"
+                   readonly
+                   ngbDatepicker
+                   #datePicker="ngbDatepicker"
+                   [minDate]="dateConstraints.min"
+                   [maxDate]="dateConstraints.max"
+                   [positionTarget]="calendarIcon"
+                   (click)="onDatePickerClick()"
+            >
+            <span class="input-border-animated"></span>
+
+            <div class="clear-icon click" (click)="clearDate()" *ngIf="userDataForm.get('birth_date')?.value">
+              <i class="fa-solid fa-xmark hover-secondary"></i>
+            </div>
+            <div class="calender-icon" (click)="onDatePickerClick()" #calendarIcon>
+              <i class="fa-solid fa-calendar-days hover-secondary"></i>
+            </div>
+          </div>
+
+
+          <val-errors controlName="birth_date" label="{{ 'labels.dateOfBirth' | translate }}"></val-errors>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="custom-button mr-2" (click)="close()">Cancel</button>
+        <button type="submit" class="custom-button custom-button-secondary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<input type="file" class="file-input" (change)="onFileUploaded($event)" #fileUpload>
