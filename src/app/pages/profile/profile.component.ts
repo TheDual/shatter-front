@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditProfileDataModalComponent } from '../../widgets/edit-profile-data-modal/edit-profile-data-modal.component';
 import { EnumsService } from '../../services/enums.service';
+import { DATE_CONSTRAINTS } from '../../constants/constants';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user.subscribe(data => {
       this.user = data;
-      console.log(data);
+      console.log(DATE_CONSTRAINTS);
     });
   }
 

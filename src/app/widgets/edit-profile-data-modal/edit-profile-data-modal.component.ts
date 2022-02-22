@@ -38,14 +38,13 @@ export class EditProfileDataModalComponent implements OnInit, OnDestroy {
       profile_picture: new FormControl('', []),
       profile_email: new FormControl('', [Validators.pattern(emailRegexp)]),
       gender: new FormControl('', []),
-      birth_date: new FormControl('', []),
+      birth_date: new FormControl({}),
     })
 
     this.genderTypes = this.enumsService.getArray(['gender']);
   }
 
   ngOnInit(): void {
-    this.datePicker?.toggle();
 
     if (this.user) {
       this.userDataForm.patchValue({...this.user, ...this.user.profile});
@@ -104,7 +103,6 @@ export class EditProfileDataModalComponent implements OnInit, OnDestroy {
 
   submit() {
     this.userDataForm.markAllAsTouched();
-
     if (this.userDataForm.invalid) return;
 
     const formData = this.userDataForm.value;
