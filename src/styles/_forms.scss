@@ -60,6 +60,21 @@ ng-select {
   }
 }
 
+textarea {
+  background-color: var(--color-bg);
+  border: none;
+  color: var(--color-font-primary);
+  resize: none;
+  border-radius: 5px;
+  height: 1rem;
+  padding: 10px 5px;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
+
 input[type="button"], button.custom-button {
   background-color: transparent;
   color: #FFF;

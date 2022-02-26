@@ -24,6 +24,7 @@ import { EditProfileDataModalComponent } from './widgets/edit-profile-data-modal
 import { TooltipDirective } from './services/tooltip.directive';
 import { UploadDirective } from './services/upload.directive';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { PostComponent } from './widgets/post/post.component';
 
 localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
 
@@ -39,7 +40,8 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
     ProfileComponent,
     EditProfileDataModalComponent,
     TooltipDirective,
-    UploadDirective
+    UploadDirective,
+    PostComponent
   ],
   imports: [
     BrowserModule,

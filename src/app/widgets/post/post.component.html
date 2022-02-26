@@ -1,0 +1,124 @@
+<div class="custom-container mt-2">
+  <div class="post-header d-flex">
+    <div class="img-container user-picture-round">
+      <img src="/assets/images/profile-pic.jpg" alt="Profile Picture">
+    </div>
+    <div class="user-data">
+<!--      TODO: ADD DEEPLINKS-->
+      <div class="user-credentials pointer hover-secondary">
+        Ardian Nowak
+      </div>
+      <div class="created-at pointer hover-primary">
+        2001-20-12 22:02
+      </div>
+    </div>
+  </div>
+  <div class="post-body">
+    <div class="post-content">
+      Nie przyszedłem tu, żeby przegrać
+      Aaa.. Skurwysyny trzy litery : P I H
+
+    </div>
+    <div class="post-img img-container pointer">
+      <img src="/assets/images/post_default.jpg" alt="Post Picture">
+    </div>
+  </div>
+
+
+  <div class="post-bar d-flex align-items-center justify-content-between">
+    <div class="share-container d-flex align-items-center">
+      <span class="mr-2 share-count">55</span>
+      <div class="actions hover-secondary" [class.shared]="isShared" (click)="onShareClick($event)">
+        <span class="arrow-wrapper">
+          <i class="fa-solid fa-arrow-up-long" id="up"></i>
+          <i class="fa-solid fa-arrow-down-long" id="down"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="comment-count">
+      777 comments
+    </div>
+
+  </div>
+
+  <div class="comments-container">
+    <div class="comment d-flex">
+      <div class="comment-body d-flex ">
+        <div class="comment-header">Julka Kasprzak</div>
+
+        <div class="img-container user-picture-round comment-picture">
+          <img src="/assets/images/julka.JPG">
+        </div>
+        <div class="comment-text">
+          no i ja się pytam człowieku dumny ty jesteś z siebie zdajesz sobie sprawę z tego co robisz?masz ty wogóle rozum i godnośc człowieka?ja nie wiem ale żałosny typek z ciebie ,chyba nie pomyślałes nawet co robisz i kogo obrażasz
+          <div class="sent-at-text">
+            2001-22-12 19:34
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comment d-flex">
+      <div class="comment-body d-flex ">
+        <div class="comment-header">Julka Kasprzak</div>
+
+        <div class="img-container user-picture-round comment-picture">
+          <img src="/assets/images/julka.JPG">
+        </div>
+        <div class="comment-text">
+          no i ja się pytam człowieku dumny ty jesteś z siebie zdajesz sobie sprawę z tego co robisz?masz ty wogóle rozum i godnośc człowieka?ja nie wiem ale żałosny typek z ciebie ,chyba nie pomyślałes nawet co robisz i kogo obrażasz
+          <div class="sent-at-text">
+            2001-22-12 19:34
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comment d-flex">
+      <div class="comment-body d-flex ">
+        <div class="comment-header">Julka Kasprzak</div>
+
+        <div class="img-container user-picture-round comment-picture">
+          <img src="/assets/images/julka.JPG">
+        </div>
+        <div class="comment-text">
+          no i ja się pytam człowieku dumny ty jesteś z siebie zdajesz sobie sprawę z tego co robisz?masz ty wogóle rozum i godnośc człowieka?ja nie wiem ale żałosny typek z ciebie ,chyba nie pomyślałes nawet co robisz i kogo obrażasz
+          <div class="sent-at-text">
+            2001-22-12 19:34
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comment d-flex">
+      <div class="comment-body d-flex ">
+        <div class="comment-header">Julka Kasprzak</div>
+
+        <div class="img-container user-picture-round comment-picture">
+          <img src="/assets/images/julka.JPG">
+        </div>
+        <div class="comment-text">
+          co co
+           <div class="sent-at-text">
+            2001-22-12 19:34
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-footer mt-4 d-flex">
+    <div class="img-container user-picture-round comment-profile-picture">
+      <img src="/assets/images/julka.JPG" alt="Your Profile Picture">
+    </div>
+
+    <div class="comment-body" contenteditable="true" data-placeholder="Aa"></div>
+
+    <div class="comment-icon hover-secondary">
+      <i class="fa-solid fa-comment-dots"></i>
+    </div>
+  </div>
+</div>
+
+

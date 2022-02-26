@@ -3,7 +3,7 @@
     <h3>{{ 'buttons.login' | translate }}</h3>
   </div>
 
-  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+  <form [formGroup]="loginForm" (ngSubmit)="submit()" >
     <div class="field-container">
       <label for="email">{{ 'labels.email' | translate }}</label>
       <input id="email"

@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error: err => {
           console.log(err);
+          console.log('zzz');
           this.toastrService.error(err?.error?.message || 'Something went wrong');
         }
       })
