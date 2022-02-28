@@ -1,0 +1,123 @@
+:host {
+  width: 100%;
+}
+
+.modal-container {
+  position: relative;
+  padding: 0 50px 20px 50px;
+
+  .modal-header {
+    .close-icon {
+      position: absolute;
+      top: 0;
+      right: 6px;
+      font-size: 1.2rem;
+    }
+  }
+
+  .modal-body {
+
+    .button-container {
+      display: flex;
+      width: 100%;
+      align-items: flex-end;
+      justify-content: flex-end;
+      margin-top: 50px;
+    }
+
+    .post-image {
+      margin-block: 2em;
+      border-radius: 0 !important;
+      display: flex;
+      justify-content: center;
+
+      img {
+        height: 100%;
+        display: block;
+        max-width: 100%;
+      }
+    }
+
+    .post-border {
+      width: 90%;
+      border: .8em dashed var(--color-secondary);
+      position: relative;
+      aspect-ratio: 1 / 1;
+
+      &::after {
+        position: absolute;
+        content: 'DROP IMAGE HERE';
+
+        letter-spacing: .45em;
+        font-weight: bold;
+        color: var(--color-font-primary);
+        font-size: 1.4em;
+        width: 100%;
+        padding-inline: 10px;
+        top: 50%;
+        text-align: center;
+        transform: translateY(-50%);
+      }
+    }
+
+    .post-content {
+      position: relative;
+      width: 100%;
+      word-wrap: break-word;
+      background-color: var(--color-bg);
+      padding: var(--spacing-md);
+      border-radius: var(--spacing-md);
+
+      &[contenteditable=true]:empty:not(:focus)::before {
+        content: attr(data-placeholder);
+        font-size: .9rem;
+        color: var(--color-font-primary);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+  }
+}
+
+
+@media screen and(max-width: 350px){
+  .button-container {
+    display: block !important;
+    button {
+      width: 100%;
+
+      &:first-child {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    };
+  }
+}
+
+@media screen and(max-width: 423px){
+  .modal-container {
+    padding: 0 25px 25px 25px;
+  }
+}
+
+.post-image {
+  @media screen and(max-width: 992px) {
+    width: 70% !important;
+    &.post-border::after {
+      font-size: 1.1em !important;
+    }
+  }
+
+  @media screen and(max-width: 450px){
+    width: 100% !important;
+    &.post-border {
+      border-width: .5em !important;
+    }
+  }
+}
+
+
+

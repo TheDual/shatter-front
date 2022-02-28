@@ -6,9 +6,9 @@ export default class PostModel{
   id?: number;
   imageURL: string;
   content: string;
-  user?: UserModel;
+  user: UserModel;
   likes?: LikeModel[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   image: ImageModel;
 }

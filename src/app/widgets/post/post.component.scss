@@ -163,23 +163,8 @@
     }
   }
   .comment-body {
-    position: relative;
-    width: 100%;
     max-width: calc(100% - 45px);
-    word-wrap: break-word;
-    background-color: var(--color-bg);
     padding: var(--spacing-md) 60px var(--spacing-md) var(--spacing-md);
-    border-radius: var(--spacing-md);
-
-    &[contenteditable=true]:empty:not(:focus)::before {
-      content: attr(data-placeholder);
-      font-size: .9rem;
-      color: var(--color-font-primary);
-    }
-
-    &:focus {
-      outline: none;
-    }
   }
 
   .comment-icon {

@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MainComponent } from './pages/main/main.component';
 import { NgbDateParserFormatter, NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './pages/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -25,6 +25,8 @@ import { TooltipDirective } from './services/tooltip.directive';
 import { UploadDirective } from './services/upload.directive';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PostComponent } from './widgets/post/post.component';
+import { AddOrEditPostModalComponent } from './widgets/add-or-edit-post-modal/add-or-edit-post-modal.component';
+import { NgsContenteditableModule } from '@ng-stack/contenteditable';
 
 localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
 
@@ -41,7 +43,8 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
     EditProfileDataModalComponent,
     TooltipDirective,
     UploadDirective,
-    PostComponent
+    PostComponent,
+    AddOrEditPostModalComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,9 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
     ValdemortModule,
     ToastrModule.forRoot(),
     NgbDatepickerModule,
-    NgSelectModule
+    NgSelectModule,
+    FormsModule,
+    NgsContenteditableModule
   ],
   providers: [
     {

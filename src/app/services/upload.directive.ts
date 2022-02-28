@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { FILE_TYPES } from '../constants/constants';
 
 @Directive({
@@ -6,27 +6,30 @@ import { FILE_TYPES } from '../constants/constants';
 })
 export class UploadDirective {
   @Output() onFileDropped = new EventEmitter<any>();
+  @Input() disableOverlay = false;
   @HostBinding('class.drop-overlay') visible = false;
 
   @HostListener('window:dragover', ['$event']) onDragOver(event: any) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.visible = true;
+    if (!this.disableOverlay) this.visible = true;
   }
 
   @HostListener('window:dragleave', ['$event']) onDragLeave(event: any) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.visible = false;
+    if (!this.disableOverlay) this.visible = false;
+
   }
 
   @HostListener('drop', ['$event']) onDrop(event: any) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.visible = false;
+    if (!this.disableOverlay) this.visible = false;
+
 
     const files = event.dataTransfer.files;
     if(files?.length) {

@@ -8,19 +8,24 @@
     "confirmPassword": "Confirm Password",
     "dateOfBirth": "Date of Birth",
     "gender": "Gender",
-    "fullName": "Full Name"
+    "fullName": "Full Name",
+    "post": "Post",
+    "content": "Content"
   },
   "buttons": {
     "login": "Login",
     "register": "Register",
     "logout": "Logout",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "add": "Add",
+    "edit": "Edit"
   },
   "mocks": {
     "forgotPassword": "Forgot Password",
     "uploadProfileImage": "Upload Profile Image",
-    "changeProfileData": "Change Profile Data"
+    "changeProfileData": "Change Profile Data",
+    "whatWouldYouLikeToShare": "What would you like to share"
   },
   "validation" : {
     "thisField": "This Field",

@@ -117,6 +117,25 @@ val-errors {
   font-size: .9em;
 }
 
+.custom-contenteditable {
+  position: relative;
+  width: 100%;
+  word-wrap: break-word;
+  background-color: var(--color-bg);
+  border-radius: var(--spacing-md);
+
+  &[contenteditable=true]:empty:not(:focus)::before {
+    content: attr(data-placeholder);
+    font-size: .9rem;
+    color: var(--color-font-primary);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 1px 1px var(--color-secondary);
+  }
+}
+
 
 @keyframes border_animation {
   0% {

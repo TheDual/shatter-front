@@ -1,0 +1,7 @@
+.post-container {
+  & > *:not(:last-child) {
+    margin-bottom: var(--spacing-lg);
+  }
+  overflow-x: hidden;
+
+}

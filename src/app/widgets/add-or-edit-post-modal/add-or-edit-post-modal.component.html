@@ -1,0 +1,48 @@
+<div class="modal-container">
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <div class="custom-modal-header">{{id ? ('buttons.edit' | translate) : ('buttons.add' | translate)}} {{'labels.post' | translate}}</div>
+    <div class="close-icon">
+      <i class="fa-solid fa-xmark hover-primary" (click)="close()"></i>
+    </div>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="postForm" (ngSubmit)="submit()">
+      <div class="field-container">
+        <div class="post-content mt-1 custom-contenteditable"
+             contenteditable="true" data-placeholder="What would you like to share?"
+             formControlName="content"
+             editable="true">
+        </div>
+        <val-errors controlName="content" label="{{ 'labels.content' | translate }}"></val-errors>
+
+      </div>
+
+      <div class="field-container d-flex justify-content-center">
+        <ng-container *ngIf="postForm.controls['imageURL'].value else noImageTemplate">
+          <div class="img-container post-image pointer"
+               (click)="fileUpload.click()"
+               appUpload (onFileDropped)="onFileUploaded($event)">
+            <img [src]="postForm.controls['imageURL'].value | safeUrl" alt="Post Image">
+          </div>
+        </ng-container>
+
+        <ng-template #noImageTemplate>
+          <div class="img-container post-image post-border pointer"
+               (click)="fileUpload.click()"
+               appUpload (onFileDropped)="onFileUploaded($event)" [disableOverlay]="true">
+          </div>
+        </ng-template>
+
+      </div>
+
+
+
+      <div class="button-container">
+        <button class="custom-button mr-2" (click)="close()">Cancel</button>
+        <button type="submit" class="custom-button custom-button-secondary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<input type="file" class="file-input" (change)="onFileUploaded($event)" #fileUpload>

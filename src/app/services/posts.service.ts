@@ -16,4 +16,8 @@ export class PostsService extends BaseModelService{
   getPost(id: number): Observable<PostModel> {
     return this.http.get<PostModel>(enviroment.apiUrl + `posts/${id}`)
   }
+
+  addPost<T>(data: T): Observable<T> {
+    return this.http.post<T>(enviroment.apiUrl + 'posts/', data);
+  }
 }
