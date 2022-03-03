@@ -22,85 +22,58 @@
     </div>
   </div>
 
-
   <div class="post-bar d-flex align-items-center justify-content-between">
     <div class="share-container d-flex align-items-center">
       <span class="mr-2 share-count">{{post.likes?.length || 0}}</span>
-      <div class="actions hover-secondary" [class.shared]="isShared" (click)="onShareClick($event)">
+      <div class="actions hover-secondary" [class.shared]="isShared" (click)="onShareClick($event); toggleLike()">
         <span class="arrow-wrapper">
-          <i class="fa-solid fa-arrow-up-long" id="up"></i>
-          <i class="fa-solid fa-arrow-down-long" id="down"></i>
+          <i class="fa-solid fa-arrow-up-long up" #upArrowRef></i>
+          <i class="fa-solid fa-arrow-down-long down" #downArrowRef></i>
         </span>
       </div>
     </div>
 
     <div class="comment-count">
-      777 comments
+      {{post.comments?.length || 0}} comments
     </div>
 
   </div>
 
   <div class="comments-container">
-    <div class="comment d-flex">
-      <div class="comment-body d-flex ">
-        <div class="comment-header">Julka Kasprzak</div>
+    <div class="comment d-flex" *ngFor="let comment of post.comments">
+      <div class="comment-container d-flex">
+        <div class="comment-header">{{comment.user.first_name | titlecase}} {{comment.user.last_name | titlecase}}</div>
 
         <div class="img-container user-picture-round comment-picture">
           <img src="/assets/images/julka.JPG">
         </div>
-        <div class="comment-text">
-          no i ja się pytam człowieku dumny ty jesteś z siebie zdajesz sobie sprawę z tego co robisz?masz ty wogóle rozum i godnośc człowieka?ja nie wiem ale żałosny typek z ciebie ,chyba nie pomyślałes nawet co robisz i kogo obrażasz
-          <div class="sent-at-text">
-            2001-22-12 19:34
+        <div class="comment-body">
+          <div class="comment-text">
+            {{comment.content}}
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="comment d-flex">
-      <div class="comment-body d-flex ">
-        <div class="comment-header">Julka Kasprzak</div>
+          <div class="comment-footer">
+            <div class="vote-container">
+              <span class="vote-icon hover-secondary"
+                    [class.vote-active]="comment.voteState === voteState.UPVOTED"
+                    (click)="handleVote(comment.id!, 1)">
+                <i class="fa-solid fa-angle-up"></i>
+              </span>
 
-        <div class="img-container user-picture-round comment-picture">
-          <img src="/assets/images/julka.JPG">
-        </div>
-        <div class="comment-text">
-          no i ja się pytam człowieku dumny ty jesteś z siebie zdajesz sobie sprawę z tego co robisz?masz ty wogóle rozum i godnośc człowieka?ja nie wiem ale żałosny typek z ciebie ,chyba nie pomyślałes nawet co robisz i kogo obrażasz
-          <div class="sent-at-text">
-            2001-22-12 19:34
+              <span class="vote-count ml-2 mr-2">{{comment.voteValue}}</span>
+
+              <span class="vote-icon hover-secondary"
+                    [class.vote-active]="comment.voteState === voteState.DOWNVOTED"
+                    (click)="handleVote(comment.id!, -1)">
+                <i class="fa-solid fa-angle-down"></i>
+              </span>
+            </div>
+
+            <div class="sent-at-text">
+              {{comment.created_at}}
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="comment d-flex">
-      <div class="comment-body d-flex ">
-        <div class="comment-header">Julka Kasprzak</div>
-
-        <div class="img-container user-picture-round comment-picture">
-          <img src="/assets/images/julka.JPG">
-        </div>
-        <div class="comment-text">
-          no i ja się pytam człowieku dumny ty jesteś z siebie zdajesz sobie sprawę z tego co robisz?masz ty wogóle rozum i godnośc człowieka?ja nie wiem ale żałosny typek z ciebie ,chyba nie pomyślałes nawet co robisz i kogo obrażasz
-          <div class="sent-at-text">
-            2001-22-12 19:34
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="comment d-flex">
-      <div class="comment-body d-flex ">
-        <div class="comment-header">Julka Kasprzak</div>
-
-        <div class="img-container user-picture-round comment-picture">
-          <img src="/assets/images/julka.JPG">
-        </div>
-        <div class="comment-text">
-          co co
-           <div class="sent-at-text">
-            2001-22-12 19:34
-          </div>
         </div>
       </div>
     </div>
@@ -111,9 +84,14 @@
       <img src="/assets/images/julka.JPG" alt="Your Profile Picture">
     </div>
 
-    <div class="comment-body custom-contenteditable" contenteditable="true" data-placeholder="Aa"></div>
+    <div class="comment-body custom-contenteditable"
+         contenteditable="true"
+         data-placeholder="Aa"
+         (keydown.enter)="$event.preventDefault(); addComment()"
+         #commentBody>
+    </div>
 
-    <div class="comment-icon hover-secondary">
+    <div class="comment-icon hover-secondary" (click)="addComment()">
       <i class="fa-solid fa-comment-dots"></i>
     </div>
   </div>

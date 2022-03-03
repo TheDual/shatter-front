@@ -1,4 +1,6 @@
 import ProfileModel from './profile.model';
+import LikeModel from './like.model';
+import PostModel from './post.model';
 
 export default class UserModel {
   id?: number;
@@ -8,5 +10,7 @@ export default class UserModel {
   created_at: Date;
   updated_at: Date
   profile?: ProfileModel;
+  likes: LikeModel[];
+  posts: PostModel[]
 
 }

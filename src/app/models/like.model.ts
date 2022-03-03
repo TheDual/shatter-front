@@ -4,8 +4,8 @@ import UserModel from './user.model';
 
 export default class LikeModel {
   id?: number;
-  post: PostModel;
-  user: UserModel;
+  postId: number;
+  userId: number;
   created_at: Date;
   updated_at: Date
   profile?: ProfileModel;

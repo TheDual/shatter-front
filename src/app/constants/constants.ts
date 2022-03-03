@@ -6,6 +6,13 @@ export enum SCREENS {
   REGISTER = "/register",
   PROFILE = "/profile",
 }
+
+export enum VoteState {
+  DEFAULT= 1,
+  UPVOTED,
+  DOWNVOTED
+}
+
 export const emailRegexp = '^\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$';
 
 export const DATE_CONSTRAINTS = {
