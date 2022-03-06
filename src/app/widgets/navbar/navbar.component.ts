@@ -31,7 +31,6 @@ export class NavbarComponent implements OnInit {
     this.authService.user
       .subscribe(data => {
         this.user = data;
-        console.log(data);
       });
   }
 
@@ -41,7 +40,8 @@ export class NavbarComponent implements OnInit {
     this.toastrService.success('Logged out');
   }
 
-  toggleDropdown() {
+  toggleDropdown(event: any) {
+    event.stopPropagation();
     this.showDropdown = !this.showDropdown;
   }
 

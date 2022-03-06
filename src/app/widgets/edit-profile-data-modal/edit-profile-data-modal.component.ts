@@ -1,7 +1,7 @@
 import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import UserModel from '../../models/user.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { convertBufferToBase64, convertDateToString, convertStringToDate, convertToBase64, convertToBlob } from '../../constants/utils';
+import { convertBufferToBase64, convertDateToString, convertStringToDate, convertToBase64, convertToBlob, toFormData } from '../../constants/utils';
 import { DATE_CONSTRAINTS, emailRegexp, FILE_TYPES } from '../../constants/constants';
 import { EnumsService } from '../../services/enums.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -35,7 +35,7 @@ export class EditProfileDataModalComponent implements OnInit, OnDestroy {
     this.userDataForm = new FormGroup({
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', [Validators.required]),
-      profile_picture: new FormControl('', []),
+      image: new FormControl(undefined, []),
       profile_email: new FormControl('', [Validators.pattern(emailRegexp)]),
       gender: new FormControl('', []),
       birth_date: new FormControl({}),
@@ -45,18 +45,14 @@ export class EditProfileDataModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     if (this.user) {
       this.userDataForm.patchValue({...this.user, ...this.user.profile});
 
-      const profilePic = this.user.profile?.image?.file_path;
-      if (profilePic?.length) {
-        // this.userDataForm.get('profile_picture')?.setValue(convertBufferToBase64(profilePic))
-      }
-
-      const dateOfBirth = this.user?.profile?.birth_date;
+      const dateOfBirth = this.user?.profile?.birth_date || null;
       if (dateOfBirth) {
         this.userDataForm.get('birth_date')?.setValue(convertStringToDate(dateOfBirth))
+      } else {
+        this.userDataForm.get('birth_date')?.setValue(dateOfBirth)
       }
 
       this.imageURL = this.user?.profile?.image?.file_path || null;
@@ -64,11 +60,10 @@ export class EditProfileDataModalComponent implements OnInit, OnDestroy {
   }
 
   async onFileDropped(data: File) {
-    this.imageURL =  URL.createObjectURL(data);
-    const fileBuffer = await convertToBase64(data);
 
-    if (fileBuffer) {
-      this.userDataForm.get('profile_picture')?.setValue(fileBuffer);
+    if (data) {
+      this.imageURL =  URL.createObjectURL(data);
+      this.userDataForm.get('image')?.setValue(data);
     }
   }
 
@@ -97,31 +92,31 @@ export class EditProfileDataModalComponent implements OnInit, OnDestroy {
   }
 
   clearProfilePicture() {
-    this.userDataForm.get('profile_picture')?.setValue(null);
+    this.userDataForm.get('image')?.setValue('null');
     this.imageURL = null;
   }
 
   submit() {
     this.userDataForm.markAllAsTouched();
+    console.log(this.userDataForm);
     if (this.userDataForm.invalid) return;
 
-    const formData = this.userDataForm.value;
-    const payload: any = {};
-    if (formData['birth_date']) {
-      formData['birth_date'] = convertDateToString(formData['birth_date']);
+    const payload = this.userDataForm.value;
+    if (payload['birth_date']) {
+      payload['birth_date'] = convertDateToString(payload['birth_date']);
     }
 
     payload['user_data'] = {};
     ['first_name', 'last_name'].forEach(key => {
-      if (formData[key]) {
-        payload['user_data'][key] = formData[key]
-        delete formData[key];
+      if (payload[key]) {
+        payload['user_data'][key] = payload[key]
+        delete payload[key];
       }
     })
 
-    payload['profile'] = formData;
-
-    this.profilesService.updateProfile(payload)
+    payload['user_data'] = JSON.stringify(payload['user_data']);
+    const formData = toFormData(payload);
+    this.profilesService.updateProfile(formData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: data => {

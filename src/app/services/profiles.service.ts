@@ -15,6 +15,6 @@ export class ProfilesService extends BaseModelService {
   }
 
   updateProfile(data: any): Observable<UserModel>{
-    return this.http.put<UserModel>(enviroment.apiUrl + `users/profiles/`, data)
+    return this.http.post<UserModel>(enviroment.apiUrl + `users/profiles/`, data)
   }
 }

@@ -18,11 +18,11 @@
       </div>
 
       <div class="field-container d-flex justify-content-center">
-        <ng-container *ngIf="postForm.controls['imageURL'].value else noImageTemplate">
+        <ng-container *ngIf="this.imageURL else noImageTemplate">
           <div class="img-container post-image pointer"
                (click)="fileUpload.click()"
                appUpload (onFileDropped)="onFileUploaded($event)">
-            <img [src]="postForm.controls['imageURL'].value | safeUrl" alt="Post Image">
+            <img [src]="this.imageURL | safeUrl" alt="Post Image">
           </div>
         </ng-container>
 

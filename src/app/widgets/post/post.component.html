@@ -17,8 +17,8 @@
     <div class="post-content">
       {{post.content}}
     </div>
-    <div class="post-img img-container pointer" *ngIf="post.imageURL">
-      <img [src]="post.imageURL | safeUrl" alt="Post Picture">
+    <div class="post-img img-container pointer" *ngIf="post.image?.file_path">
+      <img [src]="post.image?.file_path | safeUrl" alt="Post Picture">
     </div>
   </div>
 

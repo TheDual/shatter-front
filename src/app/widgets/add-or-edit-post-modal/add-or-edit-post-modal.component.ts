@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { convertDateToString, convertToBase64, convertToBlob } from '../../constants/utils';
+import { convertDateToString, convertToBase64, convertToBlob, toFormData } from '../../constants/utils';
 import { map, Subject, takeUntil } from 'rxjs';
 import UserModel from '../../models/user.model';
 import { EnumsService } from '../../services/enums.service';
@@ -23,7 +23,7 @@ export class AddOrEditPostModalComponent implements OnInit, OnDestroy {
   @Input() post?: PostModel;
   unsubscribe$ = new Subject<void>();
   postForm: FormGroup;
-  imageURL: string;
+  imageURL: string | null;
   content: string;
 
   constructor(private enumsService: EnumsService,
@@ -32,7 +32,6 @@ export class AddOrEditPostModalComponent implements OnInit, OnDestroy {
               private toastrService: ToastrService) {
 
     this.postForm = new FormGroup({
-      imageURL: new FormControl(''),
       image: new FormControl(null),
       content: new FormControl('', [Validators.required])
     });
@@ -41,6 +40,7 @@ export class AddOrEditPostModalComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.id && this.post) {
       this.postForm.patchValue(this.post);
+      this.imageURL = this.post?.image?.file_path || null;
     }
   }
 
@@ -59,35 +59,26 @@ export class AddOrEditPostModalComponent implements OnInit, OnDestroy {
 
     if (!file) return;
 
-    const fileBuffer = await convertToBase64(file);
-    if (!fileBuffer) return;
-
-    this.postForm.get('imageURL')?.patchValue(URL.createObjectURL(file));
-    this.postForm.get('image')?.patchValue(fileBuffer);
+    this.imageURL = URL.createObjectURL(file);
+    this.postForm.get('image')?.patchValue(file);
   }
 
   submit() {
     this.postForm.markAllAsTouched();
     if (this.postForm.invalid) return;
 
-    const payload = {post: this.postForm.value};
+    const formData = toFormData(this.postForm.value);
 
-    let req = this.id ? this.postsService.patchDetail<typeof payload>(this.id, payload) : this.postsService.addPost<typeof payload>(payload);
+    let req = this.id ? this.postsService.patchDetail<typeof formData>(this.id, formData) : this.postsService.addPost<typeof formData>(formData);
 
     req.pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (data: any) => {
           this.toastrService.success(`Post ${this.id ? 'edited' : 'added'} successfully!`)
 
-          if (data.image?.data?.length) {
-            data['imageURL'] = URL.createObjectURL(convertToBlob(data.image?.data));
-          }
           data['created_at'] = moment(data['created_at']).local().format('YYYY-MM-DD HH:mm');
           data['updated_at'] = moment(data['updated_at']).local().format('YYYY-MM-DD HH:mm');
 
-          if (data.user.profile?.profile_picture?.data?.length) {
-            data.user.profile['profile_picURL'] = URL.createObjectURL(convertToBlob(data.user.profile?.profile_picture?.data));
-          }
           this.close({success: true, post: data});
         },
         error: (err: any) => {

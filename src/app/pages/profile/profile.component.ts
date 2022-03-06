@@ -24,7 +24,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user.subscribe(data => {
       this.user = data;
-      console.log(DATE_CONSTRAINTS);
     });
   }
 
