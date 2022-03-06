@@ -16,7 +16,7 @@
     <ng-template #loggedIn>
       <div class="logged-in d-flex align-items-center">
         <div class="img-container pointer user-picture-round">
-          <img [src]="(user?.profile?.profile_picURL | safeUrl) || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
+          <img [src]="user?.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
         </div>
         <div class="dropdown-container pointer" (click)="toggleDropdown()" [ngClass]="showDropdown ? 'dropdown-show' : 'dropdown-hide'">
           <div class="first-name-text user-select-none">

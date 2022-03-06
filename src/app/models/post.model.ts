@@ -12,5 +12,5 @@ export default class PostModel{
   comments: CommentModel[] = [];
   created_at: string;
   updated_at: string;
-  image: ImageModel;
+  image?: ImageModel;
 }

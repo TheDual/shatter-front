@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
     this.authService.user
       .subscribe(data => {
         this.user = data;
+        console.log(data);
       });
   }
 

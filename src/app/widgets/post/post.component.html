@@ -1,7 +1,7 @@
 <div class="custom-container mt-2">
   <div class="post-header d-flex">
     <div class="img-container user-picture-round">
-      <img [src]="(post.user.profile?.profile_picURL | safeUrl) || '/assets/images/mock_avatar.png'" alt="Profile Picture">
+      <img [src]="post?.user?.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Profile Picture">
     </div>
     <div class="user-data">
 <!--      TODO: ADD DEEPLINKS-->
@@ -72,6 +72,7 @@
             <div class="sent-at-text">
               {{comment.created_at}}
             </div>
+
           </div>
 
         </div>

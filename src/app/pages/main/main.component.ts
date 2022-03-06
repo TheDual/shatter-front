@@ -45,17 +45,9 @@ export class MainComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$),
             map(posts => {
               posts.forEach(post => {
-                if (post.image?.data?.length) {
-                  post['imageURL'] = URL.createObjectURL(convertToBlob(post.image?.data));
-                }
                 post['created_at'] = moment(post['created_at']).local().format('YYYY-MM-DD HH:mm');
                 post['updated_at'] = moment(post['updated_at']).local().format('YYYY-MM-DD HH:mm');
-
-                if (post.user.profile?.profile_picture?.data?.length) {
-                  post.user.profile['profile_picURL'] = URL.createObjectURL(convertToBlob(post.user.profile?.profile_picture?.data));
-                }
               })
-
               return posts;
             })
       )

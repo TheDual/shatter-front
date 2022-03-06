@@ -34,14 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.invalid) return;
 
     this.authService.login(this.loginForm.value)
-      .pipe(takeUntil(this.unsubscribe$),
-        map(data => {
-          if (data?.user?.profile?.profile_picture?.data) {
-            data['user']['profile']['profile_picURL'] = URL.createObjectURL(convertToBlob(data.user?.profile?.profile_picture.data));
-          }
-          return data;
-
-        }))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: data => {
           this.authService.user.next(data.user);

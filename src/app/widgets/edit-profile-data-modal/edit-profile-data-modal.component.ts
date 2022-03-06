@@ -49,9 +49,9 @@ export class EditProfileDataModalComponent implements OnInit, OnDestroy {
     if (this.user) {
       this.userDataForm.patchValue({...this.user, ...this.user.profile});
 
-      const profilePic = this.user.profile?.profile_picture?.data;
+      const profilePic = this.user.profile?.image?.file_path;
       if (profilePic?.length) {
-        this.userDataForm.get('profile_picture')?.setValue(convertBufferToBase64(profilePic))
+        // this.userDataForm.get('profile_picture')?.setValue(convertBufferToBase64(profilePic))
       }
 
       const dateOfBirth = this.user?.profile?.birth_date;
@@ -59,7 +59,7 @@ export class EditProfileDataModalComponent implements OnInit, OnDestroy {
         this.userDataForm.get('birth_date')?.setValue(convertStringToDate(dateOfBirth))
       }
 
-      this.imageURL = this.user?.profile?.profile_picURL || null;
+      this.imageURL = this.user?.profile?.image?.file_path || null;
     }
   }
 
@@ -122,13 +122,7 @@ export class EditProfileDataModalComponent implements OnInit, OnDestroy {
     payload['profile'] = formData;
 
     this.profilesService.updateProfile(payload)
-      .pipe(takeUntil(this.unsubscribe$),
-            map((data: UserModel) => {
-              if (data?.profile?.profile_picture?.data) {
-                data['profile']['profile_picURL'] = URL.createObjectURL(convertToBlob(data.profile?.profile_picture.data));
-              }
-              return data;
-      }))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: data => {
           this.authService.user.next(data);

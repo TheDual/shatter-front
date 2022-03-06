@@ -34,6 +34,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.post.comments?.forEach(comment => this.mapCommentDate(comment));
+    console.log(this.post);
     this.checkIfIsShared();
   }
 

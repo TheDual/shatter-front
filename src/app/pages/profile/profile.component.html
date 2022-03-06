@@ -1,7 +1,7 @@
 <div class="profile-container d-flex justify-content-between mt-4" *ngIf="user">
   <div class="custom-container profile-data-container">
     <div class="img-container">
-      <img [src]="(user?.profile?.profile_picURL | safeUrl) || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
+      <img [src]="user.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
     </div>
 
     <div class="profile-data">

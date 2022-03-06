@@ -19,12 +19,6 @@ export class AuthService extends BaseModelService {
       const token = localStorage.getItem('auth');
       if (token) {
         this.getMe()
-          .pipe(map(data => {
-            if (data?.profile?.profile_picture?.data) {
-              data['profile']['profile_picURL'] = URL.createObjectURL(convertToBlob(data.profile?.profile_picture.data));
-            }
-            return data;
-          }))
           .subscribe({
             next: data => {
               this.user.next(data);
