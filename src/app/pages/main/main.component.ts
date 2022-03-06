@@ -62,6 +62,11 @@ export class MainComponent implements OnInit, OnDestroy {
       })
   }
 
+  onPostDeleted(postId: number) {
+    const postIndex = this.posts.findIndex(post => post.id === postId);
+    if (postIndex > -1) this.posts.splice(postIndex, 1);
+  }
+
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

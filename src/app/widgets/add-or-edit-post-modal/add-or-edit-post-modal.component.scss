@@ -31,6 +31,24 @@
       display: flex;
       justify-content: center;
 
+      &.has-image {
+        position: relative;
+
+
+        .remove-image-icon, .edit-image-icon {
+          position: absolute;
+          top: 0;
+          font-size: 1.3rem;
+        }
+        .remove-image-icon {
+          left: 3px;
+        }
+
+        .edit-image-icon {
+          right: 3px;
+        }
+      }
+
       img {
         height: 100%;
         display: block;

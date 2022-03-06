@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import PostModel from '../../models/post.model';
 import { LikesService } from '../../services/likes.service';
 import { filter, Subject, take, takeUntil } from 'rxjs';
@@ -9,6 +9,10 @@ import CommentModel from '../../models/comment.model';
 import * as moment from 'moment';
 import { VoteState } from '../../constants/constants';
 import UserModel from '../../models/user.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddOrEditPostModalComponent } from '../add-or-edit-post-modal/add-or-edit-post-modal.component';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { PostsService } from '../../services/posts.service';
 
 @Component({
   selector: 'app-post',
@@ -17,6 +21,7 @@ import UserModel from '../../models/user.model';
 })
 export class PostComponent implements OnInit, OnDestroy {
   @Input() post: PostModel;
+  @Output() postDeleted = new EventEmitter<number>();
   isShared = false;
   unsubscribe$ = new Subject<void>();
   voteState = VoteState;
@@ -30,11 +35,12 @@ export class PostComponent implements OnInit, OnDestroy {
   constructor(private likesService: LikesService,
               private authService: AuthService,
               private commentsService: CommentsService,
-              private toastrService: ToastrService) { }
+              private toastrService: ToastrService,
+              private modalService: NgbModal,
+              private postsService: PostsService) { }
 
   ngOnInit(): void {
     this.post.comments?.forEach(comment => this.mapCommentDate(comment));
-    console.log(this.post);
     this.checkIfIsShared();
   }
 
@@ -111,12 +117,6 @@ export class PostComponent implements OnInit, OnDestroy {
         next: (data: any) => {
           this.commentBody.nativeElement.textContent = '';
           this.mapCommentDate(data);
-
-          data['user'] = {
-            first_name: this.user.first_name,
-            last_name: this.user.last_name
-          };
-
           this.post.comments.push(data);
         },
         error: err => {
@@ -124,6 +124,41 @@ export class PostComponent implements OnInit, OnDestroy {
           this.toastrService.error(err?.error?.message || 'Something went wrong');
         }
       })
+  }
+
+  editPost() {
+    const modalRef = this.modalService.open(AddOrEditPostModalComponent, {size: 'md'});
+    modalRef.componentInstance.id = this.post.id;
+    modalRef.componentInstance.post = this.post;
+
+    modalRef.result.then(res => {
+      if (res?.success && res?.post) {
+        this.post = res.post;
+        this.post.comments?.forEach(comment => this.mapCommentDate(comment));
+        this.checkIfIsShared();
+      }
+    }, err => {})
+  }
+
+  deletePost() {
+    const modalRef = this.modalService.open(ConfirmationModalComponent, {size: 'md'});
+    modalRef.componentInstance.text = 'Do you really want to delete this post?';
+
+    modalRef.result.then(res => {
+      if (res?.success) {
+        this.postsService.deleteDetail<PostModel>(this.post.id!)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe({
+            next: data => {
+              this.postDeleted.emit(this.post.id);
+            },
+            error: err => {
+              console.log(err);
+              this.toastrService.error(err?.error?.message || 'Could not delete post')
+            }
+          })
+      }
+    }, err => {})
   }
 
   ngOnDestroy() {

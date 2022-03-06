@@ -27,4 +27,22 @@
 }
 
 
+.modal-container {
+  position: relative;
+  padding: 0 50px 20px 50px;
 
+  .modal-header {
+    .close-icon {
+      position: absolute;
+      top: 0;
+      right: 6px;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media screen and(max-width: 423px){
+  .modal-container {
+    padding: 0 25px 25px 25px;
+  }
+}

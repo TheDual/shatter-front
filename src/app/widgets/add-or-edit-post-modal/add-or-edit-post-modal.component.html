@@ -19,10 +19,17 @@
 
       <div class="field-container d-flex justify-content-center">
         <ng-container *ngIf="this.imageURL else noImageTemplate">
-          <div class="img-container post-image pointer"
+          <div class="img-container post-image pointer has-image"
                (click)="fileUpload.click()"
                appUpload (onFileDropped)="onFileUploaded($event)">
             <img [src]="this.imageURL | safeUrl" alt="Post Image">
+
+            <div class="remove-image-icon hover-primary" (click)="deleteImage($event)">
+              <i class="fa-solid fa-xmark"></i>
+            </div>
+            <div class="edit-image-icon hover-primary">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </div>
           </div>
         </ng-container>
 
@@ -35,11 +42,9 @@
 
       </div>
 
-
-
       <div class="button-container">
-        <button class="custom-button mr-2" (click)="close()">Cancel</button>
-        <button type="submit" class="custom-button custom-button-secondary">Save</button>
+        <button class="custom-button mr-2" (click)="close()">{{ 'buttons.cancel' | translate }}</button>
+        <button type="submit" class="custom-button custom-button-secondary">{{ 'buttons.save' | translate }}</button>
       </div>
     </form>
   </div>

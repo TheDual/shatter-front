@@ -1,0 +1,29 @@
+:host {
+  width: 100%;
+}
+
+.confirmation-text {
+  margin-bottom: 50px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+
+@media screen and(max-width: 350px){
+  .button-container {
+    display: block !important;
+    button {
+      width: 100%;
+
+      &:first-child {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    };
+  }
+}

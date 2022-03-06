@@ -88,6 +88,14 @@ export class AddOrEditPostModalComponent implements OnInit, OnDestroy {
       })
   }
 
+  deleteImage(event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.imageURL = null;
+    this.postForm.get('image')?.setValue('null');
+  }
+
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

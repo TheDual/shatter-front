@@ -1,5 +1,5 @@
 :host {
-  --post-width: 500px;
+  --post-width: 600px;
   --container-padding: 10px;
   display: block;
   width: 100%;
@@ -13,6 +13,7 @@
 
 .post-header {
   margin-bottom: var(--spacing-md);
+  position: relative;
 
   .created-at {
     font-size: .8rem;
@@ -26,6 +27,15 @@
       height: fit-content;
       color: var(--color-font-secondary)
     }
+  }
+
+  .post-actions-container {
+    position: absolute;
+    right: 5px;
+    top: 0;
+
+    font-weight: bold;
+    font-size: 1.2rem;
   }
 }
 .post-body {

@@ -30,19 +30,19 @@ export class BaseModelService {
   };
 
   postDetail<T>(id: number, data: T): Observable<T> {
-    return this.http.post<T>(environment.apiUrl + this.url + id + '/', data);
+    return this.http.post<T>(environment.apiUrl + this.url + `/${id}/`, data);
   };
 
   patchDetail<T>(id: number, data: T): Observable<T> {
-    return this.http.patch<T>(environment.apiUrl + this.url + id + '/', data);
+    return this.http.patch<T>(environment.apiUrl + this.url + `/${id}/`, data);
   };
 
   putDetail<T>(id: number, data: T): Observable<T> {
-    return this.http.put<T>(environment.apiUrl + this.url + id + '/', data);
+    return this.http.put<T>(environment.apiUrl + this.url + `/${id}/`, data);
   };
 
   deleteDetail<T>(id: number): Observable<T> {
-    return this.http.delete<T>(environment.apiUrl + this.url + id + '/');
+    return this.http.delete<T>(environment.apiUrl + this.url + `/${id}/`);
   };
 
 }

@@ -1,0 +1,18 @@
+<div class="modal-container">
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <div class="custom-modal-header">{{ 'labels.confirmation' | translate }}</div>
+    <div class="close-icon">
+      <i class="fa-solid fa-xmark hover-primary" (click)="close()"></i>
+    </div>
+  </div>
+  <div class="modal-body">
+      <div class="confirmation-text">
+        {{ text }}
+      </div>
+
+      <div class="button-container">
+        <button class="custom-button mr-2" (click)="close()">{{ 'buttons.cancel' | translate }}</button>
+        <button class="custom-button custom-button-secondary" (click)="confirm()">{{ 'buttons.confirm' | translate }}</button>
+      </div>
+  </div>
+</div>

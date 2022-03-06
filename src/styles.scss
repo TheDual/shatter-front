@@ -115,3 +115,26 @@ body {
   outline: none;
   border-radius: 5px;
 }
+
+
+.dropdown-toggle {
+  &::after {
+    display: none;
+  }
+}
+
+.dropdown-menu {
+  background-color: var(--color-bg-dark);
+  border: 1px solid var(--color-secondary);
+
+  .dropdown-item {
+    color: var(--color-font-default);
+    cursor: pointer;
+    font-weight: bold;
+
+    &:hover {
+      background-color: var(--color-bg);
+      transition: background-color .2s ease-out;
+    }
+  }
+}

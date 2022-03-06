@@ -10,7 +10,9 @@
     "gender": "Gender",
     "fullName": "Full Name",
     "post": "Post",
-    "content": "Content"
+    "content": "Content",
+    "comments": "Comments",
+    "confirmation": "Confirmation"
   },
   "buttons": {
     "login": "Login",
@@ -19,7 +21,11 @@
     "profile": "Profile",
     "settings": "Settings",
     "add": "Add",
-    "edit": "Edit"
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   },
   "mocks": {
     "forgotPassword": "Forgot Password",

@@ -27,6 +27,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { PostComponent } from './widgets/post/post.component';
 import { AddOrEditPostModalComponent } from './widgets/add-or-edit-post-modal/add-or-edit-post-modal.component';
 import { NgsContenteditableModule } from '@ng-stack/contenteditable';
+import { ConfirmationModalComponent } from './widgets/confirmation-modal/confirmation-modal.component';
 
 localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
 
@@ -44,7 +45,8 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
     TooltipDirective,
     UploadDirective,
     PostComponent,
-    AddOrEditPostModalComponent
+    AddOrEditPostModalComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserModule,
