@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  justify-content: center;
+  padding-inline: 10px;
+}
+
+.notification-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+
+  .created-at {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: .8rem;
+    font-style: italic;
+  }
+}

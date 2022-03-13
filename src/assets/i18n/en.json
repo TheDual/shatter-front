@@ -12,7 +12,10 @@
     "post": "Post",
     "content": "Content",
     "comments": "Comments",
-    "confirmation": "Confirmation"
+    "confirmation": "Confirmation",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "canceled": "Canceled"
   },
   "buttons": {
     "login": "Login",
@@ -25,13 +28,18 @@
     "delete": "Delete",
     "save": "Save",
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "seeAll": "See All",
+    "accept": "Accept",
+    "reject": "Reject"
   },
   "mocks": {
     "forgotPassword": "Forgot Password",
     "uploadProfileImage": "Upload Profile Image",
     "changeProfileData": "Change Profile Data",
-    "whatWouldYouLikeToShare": "What would you like to share"
+    "whatWouldYouLikeToShare": "What would you like to share",
+    "hasSentAFriendRequest": "Has sent a friend request",
+    "noNotifications": "You don't have any notifications"
   },
   "validation" : {
     "thisField": "This Field",

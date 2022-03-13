@@ -1,0 +1,28 @@
+<div #notificationRef class="notification-item" [ngClass]="size ? 'notification-' + size : ''">
+  <div class="img-container user-picture-round">
+    <img [src]="notification?.from_user?.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
+  </div>
+
+  <div class="notification-body">
+    <div class="user-credentials">
+      {{notification?.from_user?.first_name || '-'}} {{notification?.from_user?.last_name || '-'}}
+    </div>
+    <div class="notification-text">
+      {{ 'mocks.hasSentAFriendRequest' | translate }}
+    </div>
+  </div>
+
+  <ng-container>
+    <div class="buttons-container" *ngIf="notification.status === invitationStatus.SENT else invitationUsed">
+      <button class="custom-button" (click)="handleInvitation(invitationStatus.REJECTED)">{{ 'buttons.reject' | translate }}</button>
+      <button class="custom-button custom-button-secondary" (click)="handleInvitation(invitationStatus.ACCEPTED)">{{ 'buttons.accept' | translate }}</button>
+    </div>
+  </ng-container>
+
+
+  <ng-template #invitationUsed>
+    <div class="action-text">
+      {{ notification.status ? (('labels.' + (invitationStatus[notification.status] | lowercase)) | translate) : ''}}
+    </div>
+  </ng-template>
+</div>

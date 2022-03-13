@@ -26,7 +26,7 @@ export class BaseModelService {
    * Details
    */
   getDetail<T>(id: number): Observable<T> {
-    return this.http.get<T>(environment.apiUrl + this.url + id + '/');
+    return this.http.get<T>(environment.apiUrl + this.url + `/${id}/`);
   };
 
   postDetail<T>(id: number, data: T): Observable<T> {

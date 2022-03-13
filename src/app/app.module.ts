@@ -28,6 +28,10 @@ import { PostComponent } from './widgets/post/post.component';
 import { AddOrEditPostModalComponent } from './widgets/add-or-edit-post-modal/add-or-edit-post-modal.component';
 import { NgsContenteditableModule } from '@ng-stack/contenteditable';
 import { ConfirmationModalComponent } from './widgets/confirmation-modal/confirmation-modal.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { NotificationComponent } from './widgets/notification/notification.component';
+import { AngularResizeEventModule } from 'angular-resize-event';
+import { NotificationsDetailsComponent } from './pages/notifications/notifications-details/notifications-details.component';
 
 localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
 
@@ -46,7 +50,10 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
     UploadDirective,
     PostComponent,
     AddOrEditPostModalComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    NotificationsComponent,
+    NotificationComponent,
+    NotificationsDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +76,8 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
     NgbDatepickerModule,
     NgSelectModule,
     FormsModule,
-    NgsContenteditableModule
+    NgsContenteditableModule,
+    AngularResizeEventModule
   ],
   providers: [
     {

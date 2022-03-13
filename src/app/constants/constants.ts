@@ -1,10 +1,11 @@
 import * as moment from 'moment';
 
 export enum SCREENS {
-  MAIN = "/main",
-  LOGIN = "/login",
-  REGISTER = "/register",
-  PROFILE = "/profile",
+  MAIN = '/main',
+  LOGIN = '/login',
+  REGISTER = '/register',
+  PROFILE = '/profile',
+  NOTIFICATIONS = '/notifications'
 }
 
 export enum VoteState {

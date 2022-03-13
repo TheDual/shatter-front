@@ -1,0 +1,11 @@
+<div class="custom-container mt-4 notification-container">
+  <ng-container *ngIf="notifications?.length else noNotifications">
+    <app-notification  class="notification-item"
+                       [notification]="notification"
+                       *ngFor="let notification of notifications"></app-notification>
+  </ng-container>
+
+  <ng-template #noNotifications>
+    {{ 'mocks.noNotifications' | translate }}
+  </ng-template>
+</div>

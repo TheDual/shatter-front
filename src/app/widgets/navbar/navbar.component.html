@@ -17,6 +17,45 @@
       <div class="logged-in d-flex align-items-center">
         <div class="img-container pointer user-picture-round">
           <img [src]="user?.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
+
+          <div class="notifications-badge-container" *ngIf="notifications?.length" ngbDropdown [placement]="'bottom-right'">
+            <div class="notifications-badge"
+                 id="notifications-badge"
+                 ngbDropdownToggle>
+
+              {{notifications!.length < 100 ?  notifications!.length : '+99'}}
+
+              <div class="notifications-dropdown" ngbDropdownMenu aria-labelledby="notifications-badge" >
+                <div class="notification-item" ngbDropdownItem
+                     *ngFor="let notification of notifications"
+                     [routerLink]="[SCREENS.NOTIFICATIONS, notification.id]"
+                >
+
+                  <div class="img-container user-picture-round">
+                    <img [src]="notification?.from_user?.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
+                  </div>
+
+                  <div class="notification-body">
+                    <div class="user-credentials">
+                      {{notification?.from_user?.first_name || '-'}} {{notification?.from_user?.last_name || '-'}}
+                    </div>
+                    <div class="notification-text">
+                      {{ 'mocks.hasSentAFriendRequest' | translate }}
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="notification-item mt-3 d-flex align-items-center justify-content-center">
+                  <div class="notification-body hover-primary font-weight-bold user-select-none" [routerLink]="[SCREENS.NOTIFICATIONS]">
+                    {{ 'buttons.seeAll' | translate }}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
         <div class="dropdown-container pointer" (click)="toggleDropdown($event)" [ngClass]="showDropdown ? 'dropdown-show' : 'dropdown-hide'">
           <div class="first-name-text user-select-none">

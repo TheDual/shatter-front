@@ -1,0 +1,10 @@
+<div class="custom-container mt-4 notification-container" *ngIf="notification">
+    <app-notification  class="notification-item"
+                       [notification]="notification">
+
+    </app-notification>
+
+  <div class="created-at">
+    {{ notification.created_at }}
+  </div>
+</div>

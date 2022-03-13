@@ -1,0 +1,78 @@
+:host {
+  --img-size: 100px;
+  --font-size: 1.2rem;
+
+}
+
+.notification-item {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size);
+
+  .img-container {
+    margin-right: var(--spacing-lg);
+    img {
+      min-width: var(--img-size);
+      min-height: var(--img-size);
+    }
+  }
+
+  .user-credentials {
+    color: var(--color-font-secondary);
+  }
+
+  .notification-body {
+    margin-bottom: auto;
+    margin-right: 10px;
+  }
+
+  .buttons-container {
+    margin-left: auto;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+
+    button {
+      max-height: 42px;
+    }
+
+  }
+
+  .action-text {
+    font-size: 1.4rem;
+    margin-left: auto;
+    font-style: italic;
+  }
+}
+
+.notification-medium {
+  --img-size: 70px;
+  --font-size: 1rem;
+
+  .action-text {
+    font-size: 1.2rem;
+  }
+}
+
+.notification-small {
+  --img-size: 60px;
+  --font-size: .9rem;
+
+  .action-text {
+    font-size: 1rem;
+  }
+
+  .buttons-container {
+    grid-template-columns: 1fr;
+    grid-gap: 5px;
+
+    button {
+      max-height: 35px;
+      min-width: 100px;
+      padding: 2px 5px;
+    }
+  }
+}
