@@ -15,7 +15,10 @@
     "confirmation": "Confirmation",
     "accepted": "Accepted",
     "rejected": "Rejected",
-    "canceled": "Canceled"
+    "canceled": "Canceled",
+    "friends": "Friends",
+    "posts": "Posts",
+    "activity": "Activity"
   },
   "buttons": {
     "login": "Login",
@@ -39,7 +42,9 @@
     "changeProfileData": "Change Profile Data",
     "whatWouldYouLikeToShare": "What would you like to share",
     "hasSentAFriendRequest": "Has sent a friend request",
-    "noNotifications": "You don't have any notifications"
+    "noNotifications": "You don't have any notifications",
+    "userNotFound": "User not found",
+    "userHasNoFriends": "The user does not currently have any friends"
   },
   "validation" : {
     "thisField": "This Field",

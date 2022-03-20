@@ -1,5 +1,79 @@
-<div class="profile-container d-flex justify-content-between mt-4" *ngIf="user">
-  <div class="custom-container profile-data-container">
+<div class="view-changer-container">
+  <div class="view-icon hover-secondary"
+       [class.active]="view === Views?.GRID"
+       (click)="changeView(Views.GRID)"
+  >
+    <i class="fa-solid fa-table-columns"></i>
+  </div>
+  <div class="view-icon ml-2 hover-secondary"
+       [class.active]="view === Views?.LIST"
+       (click)="changeView(Views.LIST)"
+  >
+    <i class="fa-solid fa-list-ul"></i>
+  </div>
+</div>
+
+<ng-container *ngIf="view === Views?.GRID else listViewTemplate">
+  <div class="profile-container mt-4" *ngIf="user else noUserTemplate">
+    <div class="left-bar">
+      <ng-container *ngTemplateOutlet="userInfoTemplate"></ng-container>
+      <ng-container *ngTemplateOutlet="userFriendsTemplate"></ng-container>
+    </div>
+
+    <div class="right-bar">
+     <ng-container *ngTemplateOutlet="userPostsTemplate"></ng-container>
+    </div>
+
+  </div>
+</ng-container>
+
+<ng-template #listViewTemplate>
+  <div class="list-view-container mt-4" *ngIf="user else noUserTemplate">
+    <ng-container *ngTemplateOutlet="userInfoTemplate"></ng-container>
+
+    <div class="tabs-container custom-container">
+      <div class="tabs-nav">
+        <div class="tab-item hover-secondary"
+             [class.active]="tab === Tabs?.FRIENDS"
+             (click)="changeTab(Tabs.FRIENDS)">
+          {{ 'labels.friends' | translate }}
+        </div>
+<!--        <div class="tab-item hover-secondary"-->
+<!--             [class.active]="tabs === 'posts'"-->
+<!--             (click)="changeTab('posts')">-->
+<!--          {{ 'labels.posts' | translate }}-->
+<!--        </div>-->
+        <div class="tab-item hover-secondary"
+             [class.active]="tab === Tabs?.ACTIVITY"
+             (click)="changeTab(Tabs.ACTIVITY)">
+          {{ 'labels.activity' | translate }}
+        </div>
+      </div>
+
+      <div class="mt-2 selected-option-container" [ngSwitch]="tab">
+        <ng-container *ngSwitchCase="Tabs?.FRIENDS">
+          <ng-container *ngTemplateOutlet="userFriendsTemplate"></ng-container>
+        </ng-container>
+
+<!--        <ng-container *ngSwitchCase="'posts'">-->
+<!--          <ng-container *ngTemplateOutlet="userPostsTemplate"></ng-container>-->
+<!--        </ng-container>-->
+        <ng-container *ngSwitchCase="Tabs?.ACTIVITY"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+
+<ng-template #noUserTemplate>
+  <div class="custom-container ml-auto mr-auto mt-4 d-flex justify-content-center align-items-center" style="max-width: 500px">
+    {{ 'mocks.userNotFound' | translate }}
+  </div>
+</ng-template>
+
+<ng-template #userInfoTemplate>
+  <div class="custom-container profile-data-container" *ngIf="user">
     <div class="img-container">
       <img [src]="user.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
     </div>
@@ -25,12 +99,48 @@
         <div>{{(user.profile?.birth_date | date) || '-'}}</div>
       </div>
     </div>
-    <i class="fa-solid fa-user-pen pointer edit-icon hover-secondary"
-       (click)="openEditProfileDataModal()" appTooltip [value]="'mocks.changeProfileData' | translate"></i>
 
+    <i class="fa-solid fa-user-pen pointer edit-icon hover-secondary" *ngIf="!this.id"
+       (click)="openEditProfileDataModal()" appTooltip [value]="'mocks.changeProfileData' | translate">
+    </i>
   </div>
-  <div class="spacer"></div>
-  <div class="custom-container user-posts-container">
-    dsadasd
+</ng-template>
+
+
+<ng-template #userFriendsTemplate>
+  <div class="user-friends custom-container" >
+    <div class="friends-header d-flex justify-content-between" *ngIf="view === Views?.GRID">
+      <h4 class="d-flex align-items-center" >
+        {{ 'labels.friends' | translate }}
+        <h5 *ngIf="user!.friends?.length" class="ml-2 mb-0">
+          ({{ user!.friends?.length }})
+        </h5>
+      </h4>
+
+      <div class="see-all hover-primary" (click)="seeAll(Tabs.FRIENDS)">
+        {{ 'buttons.seeAll' | translate }}
+      </div>
+    </div>
+
+    <div class="friends-container" *ngIf="user!.friends?.length else userHasNoFriendsTemplate">
+      <div class="friend" (click)="goToUserProfile(friend.id)"
+           *ngFor="let friend of (view === Views?.GRID ? (user!.friends | slice:0:8) : user!.friends)">
+        <div class="img-container user-picture-round">
+          <img [src]="friend.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Friend Profile Photo">
+        </div>
+        <div class="friend-name">
+          {{ friend.first_name || '-' }} {{ friend.last_name || '-' }}
+        </div>
+      </div>
+    </div>
+    <ng-template #userHasNoFriendsTemplate>
+      {{ 'mocks.userHasNoFriends' | translate }}
+    </ng-template>
   </div>
-</div>
+</ng-template>
+
+<ng-template #userPostsTemplate>
+  <div class="user-posts-container">
+    <app-post [post]="post" *ngFor="let post of user!.posts"></app-post>
+  </div>
+</ng-template>

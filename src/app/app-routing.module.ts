@@ -22,7 +22,16 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    children: [
+      {
+        path: '',
+        component: ProfileComponent
+      },
+      {
+        path: ':id',
+        component: ProfileComponent
+      }
+    ]
   },
   {
     path: 'notifications',

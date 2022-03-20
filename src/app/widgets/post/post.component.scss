@@ -1,12 +1,13 @@
 :host {
-  --post-width: 600px;
+
   --container-padding: 10px;
   display: block;
   width: 100%;
-  max-width: var(--post-width);
+
 
   .custom-container {
     padding: var(--container-padding);
+    width: 100%;
   }
 }
 
@@ -50,7 +51,7 @@
 
     img {
       width: 100%;
-      max-width: var(--post-width);
+
       object-fit: contain;
     }
   }

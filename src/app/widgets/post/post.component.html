@@ -1,4 +1,4 @@
-<div class="custom-container mt-2">
+<div class="custom-container">
   <div class="post-header d-flex">
     <div class="img-container user-picture-round">
       <img [src]="post?.user?.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Profile Picture">
@@ -36,7 +36,7 @@
   <div class="post-bar d-flex align-items-center justify-content-between">
     <div class="share-container d-flex align-items-center">
       <span class="mr-2 share-count">{{post.likes?.length || 0}}</span>
-      <div class="actions hover-secondary" [class.shared]="isShared" (click)="onShareClick($event); toggleLike()">
+      <div class="actions hover-secondary" [class.shared]="post.is_shared" (click)="onShareClick($event); toggleLike()">
         <span class="arrow-wrapper">
           <i class="fa-solid fa-arrow-up-long up" #upArrowRef></i>
           <i class="fa-solid fa-arrow-down-long down" #downArrowRef></i>

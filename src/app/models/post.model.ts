@@ -13,4 +13,5 @@ export default class PostModel{
   created_at: string;
   updated_at: string;
   image?: ImageModel;
+  is_shared: boolean = false;
 }

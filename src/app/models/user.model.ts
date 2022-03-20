@@ -11,6 +11,7 @@ export default class UserModel {
   updated_at: Date
   profile?: ProfileModel;
   likes: LikeModel[];
+  friends: UserModel[];
   posts: PostModel[]
 
 }

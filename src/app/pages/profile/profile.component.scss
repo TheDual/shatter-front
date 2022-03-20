@@ -1,17 +1,37 @@
 :host {
+  position: relative;
   padding: 0 40px;
 }
+
+
+// Grid View
+.view-changer-container {
+  display: flex;
+  position: absolute;
+  right: 40px;
+  align-items: center;
+
+  .view-icon {
+    color: var(--color-font-secondary);
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .view-icon.active {
+    color: var(--color-secondary-light);
+  }
+}
+
+.profile-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--spacing-md);
+}
+
 .custom-container {
   width: 100%;
   display: flex;
   align-items: center;
-}
-
-.spacer {
-  margin: 0 20px;
-  height: auto;
-  max-width: 1px;
-  //border-left: 1px solid var(--color-secondary);
 }
 
 .profile-data-container {
@@ -64,6 +84,112 @@
   }
 }
 
+.user-friends {
+  margin-top: var(--spacing-md);
+  display: block;
+
+  h4 {
+    color: var(--color-font-secondary);
+  }
+
+  .see-all {
+    color: var(--color-font-secondary);
+  }
+
+  .friends-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: var(--spacing-lg) var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+
+    .friend {
+      display: flex;
+      align-items: center;
+      --img-size: 60px;
+      border-radius: var(--img-size);
+
+      .img-container {
+        img {
+          width: var(--img-size);
+          max-height: var(--img-size);
+        }
+      }
+
+      .friend-name {
+        font-size: 1.2em;
+        margin-left: var(--spacing-sm);
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--color-bg);
+        color: var(--color-font-secondary);
+      }
+    }
+  }
+
+  @media screen and(max-width: 400px) {
+    .friends-container {
+      grid-template-columns: 1fr !important;
+    }
+  }
+}
+
+.user-posts-container {
+  width: 100%;
+
+  app-post:not(:first-child) {
+    margin-top: var(--spacing-lg);
+  }
+}
+
+
+// List View
+.list-view-container {
+  .tabs-container {
+    margin-top: var(--spacing-md);
+    display: block;
+
+    .tabs-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-inline: auto;
+      width: 70%;
+      user-select: none;
+
+      .tab-item {
+        font-size: 1.5em;
+        color: var(--color-font-secondary);
+        min-width: 150px;
+        display: flex;
+        justify-content: center;
+
+        &.active {
+          color: var(--color-secondary-light);
+          border-bottom: 2px solid var(--color-secondary-light);
+        }
+      }
+    }
+    .selected-option-container {
+      width: 100%;
+    }
+  }
+
+  .user-friends {
+    padding-inline: 0;
+    .friends-container {
+      .friend {
+        --img-size: 120px;
+        font-size: 1.3rem;
+
+        .friend-name {
+          margin-left: var(--spacing-lg);
+        }
+      }
+    }
+  }
+
+}
 
 
 @media screen and(max-width: 992px){
@@ -81,17 +207,55 @@
       .profile-data {
         margin-left: 0;
       }
-      margin-bottom: 50px;
+
     }
 
     .spacer {
       display: none;
     }
   }
+}
 
+@media screen and(max-width: 815px){
+  .list-view-container {
+    .tabs-nav {
+      width: 100% !important;
+    }
+
+    .user-friends .friends-container  {
+      grid-template-columns: 1fr;
+
+      .friend {
+        --img-size: 110px;
+        font-size: 1.35rem;
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 600px){
+  .list-view-container {
+    .tab-item {
+      min-width: 120px !important;
+    }
+
+    .user-friends .friends-container .friend {
+      --img-size: 90px;
+      font-size: 1.2rem;
+    }
+  }
 }
 
 @media screen and(max-width: 542px){
+  :host {
+    padding: 0 20px;
+  }
+
+  .view-changer-container {
+    right: 20px;
+  }
+
+
   .profile-data-container {
     .img-container,  {
       padding-right: 20px;
@@ -118,3 +282,45 @@
   }
 }
 
+@media screen and(max-width: 490px){
+  .list-view-container {
+    .user-friends .friends-container .friend {
+      --img-size: 80px !important;
+      font-size: 1.1rem !important;
+    }
+
+    .tab-item {
+      min-width: 100px !important;
+    }
+
+    .tabs-nav {
+      font-size: .7rem;
+    }
+  }
+
+
+}
+
+@media screen and(max-width: 420px){
+
+  .list-view-container {
+    .user-friends .friends-container .friend {
+      --img-size: 60px !important;
+      font-size: .9rem !important;
+    }
+
+    .tabs-container {
+      padding-inline: 15px;
+    }
+
+    .tab-item {
+      min-width: 80px !important;
+    }
+
+    .tabs-nav {
+      font-size: .6rem;
+    }
+  }
+
+
+}

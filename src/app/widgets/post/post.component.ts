@@ -22,7 +22,6 @@ import { PostsService } from '../../services/posts.service';
 export class PostComponent implements OnInit, OnDestroy {
   @Input() post: PostModel;
   @Output() postDeleted = new EventEmitter<number>();
-  isShared = false;
   unsubscribe$ = new Subject<void>();
   voteState = VoteState;
   user: UserModel;
@@ -41,15 +40,10 @@ export class PostComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.post.comments?.forEach(comment => this.mapCommentDate(comment));
-    this.checkIfIsShared();
-  }
-
-  checkIfIsShared() {
     this.authService.user
       .subscribe(user => {
         if (user) {
           this.user = user;
-          this.isShared = user!.likes.some(like => like.postId === this.post.id);
         }
       })
   }
@@ -66,7 +60,7 @@ export class PostComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.upArrowRef?.nativeElement?.classList.remove('move-up');
       this.downArrowRef?.nativeElement?.classList.remove('move-down');
-      this.isShared = !this.isShared;
+      this.post.is_shared = !this.post.is_shared;
     }, 300);
   }
 
@@ -135,7 +129,6 @@ export class PostComponent implements OnInit, OnDestroy {
       if (res?.success && res?.post) {
         this.post = res.post;
         this.post.comments?.forEach(comment => this.mapCommentDate(comment));
-        this.checkIfIsShared();
       }
     }, err => {})
   }
