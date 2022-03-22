@@ -1,10 +1,10 @@
 <div #notificationRef class="notification-item" [ngClass]="size ? 'notification-' + size : ''">
-  <div class="img-container user-picture-round">
+  <div class="img-container user-picture-round pointer" [routerLink]="[SCREENS.PROFILE, notification?.from_user?.id]">
     <img [src]="notification?.from_user?.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
   </div>
 
   <div class="notification-body">
-    <div class="user-credentials">
+    <div class="user-credentials hover-primary" [routerLink]="[SCREENS.PROFILE, notification?.from_user?.id]">
       {{notification?.from_user?.first_name || '-'}} {{notification?.from_user?.last_name || '-'}}
     </div>
     <div class="notification-text">

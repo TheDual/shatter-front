@@ -7,7 +7,7 @@ import { CommentsService } from '../../services/comments.service';
 import { ToastrService } from 'ngx-toastr';
 import CommentModel from '../../models/comment.model';
 import * as moment from 'moment';
-import { VoteState } from '../../constants/constants';
+import { SCREENS, VoteState } from '../../constants/constants';
 import UserModel from '../../models/user.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddOrEditPostModalComponent } from '../add-or-edit-post-modal/add-or-edit-post-modal.component';
@@ -23,6 +23,7 @@ export class PostComponent implements OnInit, OnDestroy {
   @Input() post: PostModel;
   @Output() postDeleted = new EventEmitter<number>();
   unsubscribe$ = new Subject<void>();
+  SCREENS = SCREENS;
   voteState = VoteState;
   user: UserModel;
 

@@ -1,6 +1,17 @@
 <ng-container>
-  <button class="custom-button" (click)="addPost()">ADD</button>
   <div class="post-container d-flex flex-column align-items-center justify-content-center">
+    <div class="add-post-container custom-container d-flex" *ngIf="user">
+      <div class="img-container user-picture-round post-profile-container">
+        <img [src]="user.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Your Profile Picture">
+      </div>
+
+      <div class="add-post-body custom-contenteditable pointer"
+           readonly="true"
+           data-placeholder="Share something!"
+           (click)="addPost()">
+      </div>
+    </div>
+
     <app-post *ngFor="let post of posts" [post]="post" (postDeleted)="onPostDeleted($event)"></app-post>
   </div>
 </ng-container>

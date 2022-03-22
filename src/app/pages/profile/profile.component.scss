@@ -8,17 +8,27 @@
 .view-changer-container {
   display: flex;
   position: absolute;
+  top: -30px;
   right: 40px;
   align-items: center;
 
   .view-icon {
     color: var(--color-font-secondary);
-    font-size: 1.2rem;
+    font-size: 1.45rem;
     line-height: 1;
   }
 
   .view-icon.active {
     color: var(--color-secondary-light);
+  }
+}
+
+.notification-container {
+  padding: 20px !important;
+  margin-bottom: var(--spacing-lg);
+
+  app-notification {
+    width: 100%;
   }
 }
 
@@ -81,6 +91,16 @@
     position: absolute;
     right: 10px;
     top: 15px;
+  }
+
+  .action-dropdown {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+
+    i {
+      font-size: 1.7rem;
+    }
   }
 }
 

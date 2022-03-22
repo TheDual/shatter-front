@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: data => {
-          this.authService.user.next(data.user);
           localStorage.setItem('auth', data.token);
+          this.authService.user.next(data.user);
           this.router.navigate([SCREENS.MAIN]);
           this.toastrService.success('Logged in!');
         },

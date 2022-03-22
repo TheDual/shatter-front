@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import UserModel from '../models/user.model';
 import enviroment from '../enviroment';
 import PostModel from '../models/post.model';
+import environment from '../enviroment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,10 @@ export class UsersService extends BaseModelService{
 
   getUserPosts(id: number): Observable<PostModel[]> {
     return this.http.get<PostModel[]>(enviroment.apiUrl + `users/${id}/posts`);
+  }
+
+  removeFriend(userId: number) {
+    return this.http.delete(environment.apiUrl + `users/${userId}/friends`);
   }
 
 }

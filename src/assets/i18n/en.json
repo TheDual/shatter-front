@@ -34,7 +34,13 @@
     "confirm": "Confirm",
     "seeAll": "See All",
     "accept": "Accept",
-    "reject": "Reject"
+    "reject": "Reject",
+    "addToFriends": "Add to Friends",
+    "cancelFriendRequest": "Cancel Friend Request",
+    "removeFromFriends": "Remove From Friends",
+    "acceptFriendRequest": "Accept Friend Request",
+    "rejectFriendRequest": "Reject Friend Request",
+    "notifications": "Notifications"
   },
   "mocks": {
     "forgotPassword": "Forgot Password",

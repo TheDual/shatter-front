@@ -40,8 +40,16 @@ export class NotificationsService extends BaseModelService{
     return this.http.get<InvitationModel[]>(environment.apiUrl + `users/${userId}/invitations/`, {params})
   }
 
+  loadInvitationsBetweenUsers(userId: number, params = {}): Observable<{invitations_received: InvitationModel[], invitations_sent: InvitationModel[]}>{
+    return this.http.get<{invitations_received: InvitationModel[], invitations_sent: InvitationModel[]}>(environment.apiUrl + `users/${userId}/invitations/between`, {params})
+  }
+
   handleInvitation(data: {invitation_id: number, status: InvitationStatus}) {
     return this.http.patch(environment.apiUrl + 'users/invitations', data);
+  }
+
+  createInvitation(data: {to_user: number}) {
+    return this.http.post(environment.apiUrl + 'users/invitations', data);
   }
 
   markNotificationAsRead(notificationId: number) {

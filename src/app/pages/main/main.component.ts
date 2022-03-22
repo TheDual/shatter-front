@@ -9,6 +9,8 @@ import { AddOrEditPostModalComponent } from '../../widgets/add-or-edit-post-moda
 import { map, Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
+import UserModel from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -18,10 +20,18 @@ import * as moment from 'moment';
 export class MainComponent implements OnInit, OnDestroy {
   posts: PostModel[];
   unsubscribe$ = new Subject<void>();
+  user: UserModel;
 
   constructor(private postsService: PostsService,
               private modalService: NgbModal,
-              private toastrService: ToastrService) { }
+              private toastrService: ToastrService,
+              private authService: AuthService) {
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.user = user;
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.loadPosts();

@@ -1,10 +1,10 @@
 <div class="custom-container">
   <div class="post-header d-flex">
-    <div class="img-container user-picture-round">
-      <img [src]="post?.user?.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Profile Picture">
+    <div class="img-container user-picture-round pointer" [routerLink]="[SCREENS.PROFILE, post.user.id]">
+      <img [src]="post.user.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Profile Picture">
     </div>
     <div class="user-data">
-      <div class="user-credentials pointer hover-secondary">
+      <div class="user-credentials pointer hover-secondary" [routerLink]="[SCREENS.PROFILE, post.user.id]">
         {{ post.user.first_name }} {{ post.user.last_name }}
       </div>
       <div class="created-at pointer hover-primary">
@@ -53,10 +53,10 @@
   <div class="comments-container">
     <div class="comment d-flex" *ngFor="let comment of post.comments">
       <div class="comment-container d-flex">
-        <div class="comment-header">{{comment.user.first_name | titlecase}} {{comment.user.last_name | titlecase}}</div>
+        <div class="comment-header hover-secondary" [routerLink]="[SCREENS.PROFILE, comment.user.id]">{{comment.user.first_name | titlecase}} {{comment.user.last_name | titlecase}}</div>
 
-        <div class="img-container user-picture-round comment-picture">
-          <img [src]="comment.user?.profile?.image?.file_path || '/assets/images/mock_avatar.png'">
+        <div class="img-container user-picture-round comment-picture pointer" [routerLink]="[SCREENS.PROFILE, comment.user.id]">
+          <img [src]="comment.user.profile?.image?.file_path || '/assets/images/mock_avatar.png'">
         </div>
         <div class="comment-body">
           <div class="comment-text">

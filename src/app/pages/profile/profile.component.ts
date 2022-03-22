@@ -10,6 +10,8 @@ import { UsersService } from '../../services/users.service';
 import { catchError, map, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import PostModel from '../../models/post.model';
+import { NotificationsService } from '../../services/notifiactions.service';
+import { InvitationStatus } from '../../models/invitation.model';
 
 export enum Views {
   GRID,
@@ -30,9 +32,10 @@ export enum Tabs {
 export class ProfileComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   id: number | null;
-  user: UserModel | null;
+  currentUser: UserModel | null;
+  userData: UserModel | null;
   genderTypes: any;
-
+  invitationStatus = InvitationStatus;
   Tabs = Tabs;
   Views = Views;
 
@@ -46,7 +49,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private router: Router,
               private route: ActivatedRoute,
               private usersService: UsersService,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService,
+              private notificationsService: NotificationsService) {
     this.genderTypes = this.enumsService.getObject(['gender']);
 
     this.route.params
@@ -58,16 +62,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.view = +queryParams['view'] || Views.GRID;
         this.tab = +queryParams['tab'] || Tabs.FRIENDS;
 
-        if (!this.id) {
-          this.authService.user.subscribe(data => {
-            if (data) {
-              this.user = data;
-              this.loadUserData();
-            }
-          });
-          return;
-        }
-        this.loadUserData();
+
+        this.authService.user.subscribe(data => {
+          if (data) {
+            this.currentUser = data;
+            this.loadUserData();
+          }
+        });
       })
 
   }
@@ -76,16 +77,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   loadUserData() {
-    if (!this.id && !this.user) return;
-    const userId = this.id || this.user!.id!;
+    if (!this.id && !this.currentUser) return;
+    const userId = this.id || this.currentUser!.id!;
 
     this.usersService.getDetail<UserModel>(userId)
       .pipe(takeUntil(this.unsubscribe$),
-        switchMap((data: any): Observable<UserModel> => {
+        switchMap((data: UserModel) => {
           return this.usersService.getUserPosts(userId).pipe(map(posts => {return {...data, posts: posts}}))
         }),
-        switchMap((data: any) => {
+        switchMap((data: UserModel) => {
           return this.usersService.getUserFriends(userId).pipe(map(friends => { return {...data, friends: friends}}))
+        }),
+        switchMap((data: UserModel) => {
+          if (data.id === this.currentUser!.id) return of(data);
+
+          return this.notificationsService.loadInvitationsBetweenUsers(userId, {status__in: [1]}).pipe(map(invitations => { return {...data, ...invitations }}))
+        }),
+        map(data => {
+          if (data.friends?.length && data.id !== this.currentUser!.id) {
+            data.is_friend = data.friends.some(friend => friend.id === this.currentUser!.id);
+          }
+          return data;
         }),
         catchError((err: any, caught: any) => {
           throw err;
@@ -93,7 +105,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: data => {
-          this.user = data;
+          this.userData = data;
+          console.log(data);
         },
         error: err => {
           console.log(err);
@@ -104,7 +117,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   openEditProfileDataModal() {
     const modalRef = this.modalService.open(EditProfileDataModalComponent, {size: 'lg'});
-    modalRef.componentInstance.user = this.user;
+    modalRef.componentInstance.user = this.currentUser;
     modalRef.result.then(res => {
 
     }, error => {
@@ -150,6 +163,62 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.router.navigate([SCREENS.PROFILE, friendId], {
       skipLocationChange: false
     })
+  }
+
+  addFriend(receivedRequest = false) {
+    if (this.userData?.is_friend) return;
+
+    this.notificationsService.createInvitation({to_user: this.userData!.id!})
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: value => {
+          this.toastrService.success(`Friend request has been ${receivedRequest ? 'accepted' : 'sent'}!`)
+          this.loadUserData();
+        },
+        error: err => {
+          console.log(err);
+          this.toastrService.error(err?.error?.message || 'Could remove user from friends');
+        }
+      })
+  }
+
+  removeFriend() {
+    if (!this.userData?.is_friend) return;
+
+    this.usersService.removeFriend(this.userData.id!)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: value => {
+          this.toastrService.success('User has been removed from your friend list!')
+          this.loadUserData();
+        },
+        error: err => {
+          console.log(err);
+          this.toastrService.error(err?.error?.message || 'Could remove user from friends');
+        }
+      })
+  }
+
+  handleInvitation(invitationId: number | undefined, invitationStatus: InvitationStatus) {
+    if (!invitationId) return;
+
+    const payload = {
+      invitation_id: invitationId,
+      status: invitationStatus
+    }
+
+    this.notificationsService.handleInvitation(payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: value => {
+          this.toastrService.success(`Invitation has been ${InvitationStatus[invitationStatus].toLowerCase()}`)
+          this.loadUserData()
+        },
+        error: err => {
+          this.toastrService.error(err?.error?.message || 'Could not perform action');
+          console.log(err);
+        }
+      })
   }
 
   ngOnDestroy() {

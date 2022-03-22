@@ -12,23 +12,32 @@
     <i class="fa-solid fa-list-ul"></i>
   </div>
 </div>
-
-<ng-container *ngIf="view === Views?.GRID else listViewTemplate">
-  <div class="profile-container mt-4" *ngIf="user else noUserTemplate">
-    <div class="left-bar">
-      <ng-container *ngTemplateOutlet="userInfoTemplate"></ng-container>
-      <ng-container *ngTemplateOutlet="userFriendsTemplate"></ng-container>
-    </div>
-
-    <div class="right-bar">
-     <ng-container *ngTemplateOutlet="userPostsTemplate"></ng-container>
-    </div>
-
+<ng-container *ngIf="userData else noUserTemplate">
+  <div class="notification-container custom-container" *ngIf="userData.invitations_received?.length">
+    <app-notification (notificationStatusChange)="loadUserData()"
+                      [notification]="userData.invitations_received[0]">
+    </app-notification>
   </div>
+
+  <ng-container *ngIf="view === Views?.GRID else listViewTemplate">
+    <div class="profile-container" >
+
+      <div class="left-bar">
+        <ng-container *ngTemplateOutlet="userInfoTemplate"></ng-container>
+        <ng-container *ngTemplateOutlet="userFriendsTemplate"></ng-container>
+      </div>
+
+      <div class="right-bar ml-3">
+        <ng-container *ngTemplateOutlet="userPostsTemplate"></ng-container>
+      </div>
+
+    </div>
+  </ng-container>
 </ng-container>
 
+
 <ng-template #listViewTemplate>
-  <div class="list-view-container mt-4" *ngIf="user else noUserTemplate">
+  <div class="list-view-container" *ngIf="userData && currentUser else noUserTemplate">
     <ng-container *ngTemplateOutlet="userInfoTemplate"></ng-container>
 
     <div class="tabs-container custom-container">
@@ -67,42 +76,65 @@
 
 
 <ng-template #noUserTemplate>
-  <div class="custom-container ml-auto mr-auto mt-4 d-flex justify-content-center align-items-center" style="max-width: 500px">
+  <div class="custom-container ml-auto mr-auto d-flex justify-content-center align-items-center" style="max-width: 500px">
     {{ 'mocks.userNotFound' | translate }}
   </div>
 </ng-template>
 
 <ng-template #userInfoTemplate>
-  <div class="custom-container profile-data-container" *ngIf="user">
+  <div class="custom-container profile-data-container" *ngIf="userData">
     <div class="img-container">
-      <img [src]="user.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
+      <img [src]="userData.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
     </div>
 
     <div class="profile-data">
       <div class="field-container">
         <label>{{ 'labels.fullName' | translate }}</label>
-        <div>{{user.first_name | titlecase}} {{user.last_name | titlecase}}</div>
+        <div>{{userData.first_name | titlecase}} {{userData.last_name | titlecase}}</div>
       </div>
 
       <div class="field-container">
         <label>{{ 'labels.email' | translate }}</label>
-        <div>{{user.profile?.profile_email || '-'}}</div>
+        <div>{{userData.profile?.profile_email || '-'}}</div>
       </div>
 
       <div class="field-container">
         <label>{{ 'labels.gender' | translate }}</label>
-        <div>{{user?.profile?.gender != null ? this.genderTypes[user.profile!.gender] : '-'}}</div>
+        <div>{{userData?.profile?.gender != null ? this.genderTypes[userData.profile!.gender] : '-'}}</div>
       </div>
 
       <div class="field-container">
         <label>{{ 'labels.dateOfBirth' | translate }}</label>
-        <div>{{(user.profile?.birth_date | date) || '-'}}</div>
+        <div>{{(userData.profile?.birth_date | date) || '-'}}</div>
       </div>
     </div>
 
-    <i class="fa-solid fa-user-pen pointer edit-icon hover-secondary" *ngIf="!this.id"
+    <i class="fa-solid fa-user-pen pointer edit-icon hover-secondary" *ngIf="userData.id === currentUser!.id else userActionTemplate"
        (click)="openEditProfileDataModal()" appTooltip [value]="'mocks.changeProfileData' | translate">
     </i>
+
+    <ng-template #userActionTemplate>
+      <div class="d-inline-block hover-secondary action-dropdown" ngbDropdown>
+        <i class="fa-solid fa-ellipsis-vertical" id="post-actions" ngbDropdownToggle></i>
+
+        <div ngbDropdownMenu aria-labelledby="post-actions">
+          <button *ngIf="!userData.is_friend && !userData.invitations_received.length && !userData.invitations_sent.length"
+                  (click)="addFriend()" ngbDropdownItem>{{ 'buttons.addToFriends' | translate }}</button>
+
+          <ng-container *ngIf="!userData.is_friend && userData.invitations_received.length">
+            <button (click)="handleInvitation(userData.invitations_received[0]?.id, invitationStatus.ACCEPTED)" ngbDropdownItem>{{ 'buttons.acceptFriendRequest' | translate }}</button>
+            <button (click)="handleInvitation(userData.invitations_received[0]?.id, invitationStatus.REJECTED)" ngbDropdownItem>{{ 'buttons.rejectFriendRequest' | translate }}</button>
+          </ng-container>
+
+          <button *ngIf="!userData.is_friend && userData.invitations_sent.length"
+                  (click)="handleInvitation(userData.invitations_sent[0]?.id, invitationStatus.CANCELED)" ngbDropdownItem>{{ 'buttons.cancelFriendRequest' | translate }}</button>
+
+          <button *ngIf="userData.is_friend"
+                  (click)="removeFriend()" ngbDropdownItem>{{ 'buttons.removeFromFriends' | translate }}</button>
+        </div>
+      </div>
+    </ng-template>
+
   </div>
 </ng-template>
 
@@ -112,8 +144,8 @@
     <div class="friends-header d-flex justify-content-between" *ngIf="view === Views?.GRID">
       <h4 class="d-flex align-items-center" >
         {{ 'labels.friends' | translate }}
-        <h5 *ngIf="user!.friends?.length" class="ml-2 mb-0">
-          ({{ user!.friends?.length }})
+        <h5 *ngIf="userData!.friends?.length" class="ml-2 mb-0">
+          ({{ userData!.friends?.length }})
         </h5>
       </h4>
 
@@ -122,9 +154,9 @@
       </div>
     </div>
 
-    <div class="friends-container" *ngIf="user!.friends?.length else userHasNoFriendsTemplate">
+    <div class="friends-container" *ngIf="userData!.friends?.length else userHasNoFriendsTemplate">
       <div class="friend" (click)="goToUserProfile(friend.id)"
-           *ngFor="let friend of (view === Views?.GRID ? (user!.friends | slice:0:8) : user!.friends)">
+           *ngFor="let friend of (view === Views?.GRID ? (userData!.friends | slice:0:8) : userData!.friends)">
         <div class="img-container user-picture-round">
           <img [src]="friend.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Friend Profile Photo">
         </div>
@@ -141,6 +173,6 @@
 
 <ng-template #userPostsTemplate>
   <div class="user-posts-container">
-    <app-post [post]="post" *ngFor="let post of user!.posts"></app-post>
+    <app-post [post]="post" *ngFor="let post of userData!.posts"></app-post>
   </div>
 </ng-template>

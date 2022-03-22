@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import InvitationModel, { InvitationStatus } from '../../models/invitation.model';
 import { debounceTime, fromEvent, Subject, Subscription, takeUntil } from 'rxjs';
 import { NotificationsService } from '../../services/notifiactions.service';
 import { ToastrService } from 'ngx-toastr';
+import { SCREENS } from '../../constants/constants';
 
 @Component({
   selector: 'app-notification',
@@ -12,8 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 export class NotificationComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('notificationRef') notificationRef: ElementRef;
   @Input() notification: InvitationModel;
+  @Output() notificationStatusChange = new EventEmitter();
   resize$: Subscription;
   unsubscribe$ = new Subject<void>();
+  SCREENS = SCREENS;
 
   size: 'small' | 'medium' | 'large' | null;
   invitationStatus = InvitationStatus;
@@ -61,6 +64,7 @@ export class NotificationComponent implements OnInit, AfterViewInit, OnDestroy {
             this.toastrService.success('User has been added to your friends')
           }
           this.notification.status = action;
+          this.notificationStatusChange.emit();
         },
         error: err => {
           this.toastrService.error(err?.error?.message || 'Could not perform action');
