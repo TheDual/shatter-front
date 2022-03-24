@@ -13,6 +13,10 @@ export class PostsService extends BaseModelService{
     super(inj, 'posts')
   }
 
+  getPostsFromMe(): Observable<PostModel[]> {
+    return this.http.get<PostModel[]>(enviroment.apiUrl + 'posts/get_posts_for_me');
+  }
+
   getPost(id: number): Observable<PostModel> {
     return this.http.get<PostModel>(enviroment.apiUrl + `posts/${id}`)
   }

@@ -12,6 +12,42 @@
 }
 
 
+.shared-by-friends-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  user-select: none;
+
+  &::before {
+    content: '';
+    display: block;
+    border-bottom: 1px solid var(--color-secondary);
+    width: 7%;
+    margin-right: var(--spacing-md);
+  }
+
+  .shared-by-friend-img {
+    &:not(:last-child) {
+      margin-right: -7px;
+    }
+
+    img {
+      max-width: 30px;
+      max-height: 30px;
+    }
+  }
+
+  .shared-text {
+    margin-left: var(--spacing-lg);
+
+    .friends-shared-count {
+      color: var(--color-font-secondary)
+    }
+  }
+}
+
+
 .post-header {
   margin-bottom: var(--spacing-md);
   position: relative;
@@ -39,6 +75,8 @@
     font-size: 1.2rem;
   }
 }
+
+
 .post-body {
   .post-content {
     margin-bottom: var(--spacing-md);

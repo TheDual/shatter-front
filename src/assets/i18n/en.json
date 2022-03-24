@@ -50,7 +50,11 @@
     "hasSentAFriendRequest": "Has sent a friend request",
     "noNotifications": "You don't have any notifications",
     "userNotFound": "User not found",
-    "userHasNoFriends": "The user does not currently have any friends"
+    "userHasNoFriends": "The user does not currently have any friends",
+    "and": "and",
+    "more": "more",
+    "friendsSharedThisPost": "friends shared this post",
+    "sharedThisPost": "shared this post"
   },
   "validation" : {
     "thisField": "This Field",

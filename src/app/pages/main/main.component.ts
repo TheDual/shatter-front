@@ -51,16 +51,8 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   loadPosts() {
-    this.postsService.getList<PostModel>()
-      .pipe(takeUntil(this.unsubscribe$),
-            map(posts => {
-              posts.forEach(post => {
-                post['created_at'] = moment(post['created_at']).local().format('YYYY-MM-DD HH:mm');
-                post['updated_at'] = moment(post['updated_at']).local().format('YYYY-MM-DD HH:mm');
-              })
-              return posts;
-            })
-      )
+    this.postsService.getPostsFromMe()
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: data => {
           this.posts = data;

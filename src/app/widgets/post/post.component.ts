@@ -37,10 +37,8 @@ export class PostComponent implements OnInit, OnDestroy {
               private commentsService: CommentsService,
               private toastrService: ToastrService,
               private modalService: NgbModal,
-              private postsService: PostsService) { }
+              private postsService: PostsService) {
 
-  ngOnInit(): void {
-    this.post.comments?.forEach(comment => this.mapCommentDate(comment));
     this.authService.user
       .subscribe(user => {
         if (user) {
@@ -49,12 +47,20 @@ export class PostComponent implements OnInit, OnDestroy {
       })
   }
 
+  ngOnInit(): void {
+    if (!this.post) return;
+
+    this.post['created_at'] = moment(this.post['created_at']).local().format('YYYY-MM-DD HH:mm');
+    this.post['updated_at'] = moment(this.post['updated_at']).local().format('YYYY-MM-DD HH:mm');
+    this.post.comments?.forEach(comment => this.mapCommentDate(comment));
+  }
+
   mapCommentDate(comment: CommentModel) {
     comment.updated_at = moment(comment['updated_at']).local().format('YYYY-MM-DD HH:mm');
     comment.created_at = moment(comment['created_at']).local().format('YYYY-MM-DD HH:mm');
   }
 
-  onShareClick(target: any) {    console.log(this.upArrowRef);
+  onShareClick(target: any) {
     this.upArrowRef?.nativeElement?.classList.add('move-up');
     this.downArrowRef?.nativeElement?.classList.add('move-down');
 

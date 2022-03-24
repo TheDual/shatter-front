@@ -1,4 +1,39 @@
 <div class="custom-container">
+  <div class="shared-by-friends-container" *ngIf="post.shared_by_friends">
+    <div class="img-container shared-by-friend-img user-picture-round pointer"
+         *ngFor="let friend of post.shared_by_friends.users | slice:0:3"
+         [routerLink]="[SCREENS.PROFILE, friend.id]"
+         ngbTooltip="{{ friend.first_name }} {{ friend.last_name }}"
+         tooltipClass="custom-tooltip"
+         container="body">
+      <img [src]="friend.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Friend picture">
+    </div>
+    <span class="shared-text" *ngIf="post.shared_by_friends.count <= 3 else moreFriendsSharedTemplate"> {{ 'mocks.sharedThisPost' | translate }} </span>
+
+    <ng-template #moreFriendsSharedTemplate>
+      <span class="shared-text">
+        {{ 'mocks.and' | translate }}
+        <span ngbDropdown [placement]="'auto'" container="body" dropdownClass="friends-shared-dropdown">
+          <span class="friends-shared-count hover-primary" id="friends-shared" ngbDropdownToggle>
+            {{ post.shared_by_friends.count - 3 }}
+            {{ 'mocks.more' | translate }}
+          </span>
+
+          <div ngbDropdownMenu aria-labelledby="friends-shared">
+            <div class="friend" ngbDropdownItem *ngFor="let friend of post.shared_by_friends.users">
+              <div class="img-container user-picture-round pointer">
+                <img [src]="friend.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Friend picture">
+              </div>
+              <div class="friend-credentials"> {{ friend.first_name }} {{ friend.last_name }} dasdasdasd</div>
+            </div>
+          </div>
+        </span>
+
+        {{ 'mocks.friendsSharedThisPost' | translate }}
+      </span>
+    </ng-template>
+  </div>
+
   <div class="post-header d-flex">
     <div class="img-container user-picture-round pointer" [routerLink]="[SCREENS.PROFILE, post.user.id]">
       <img [src]="post.user.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Profile Picture">
@@ -12,8 +47,8 @@
       </div>
     </div>
 
-    <div class="post-actions-container hover-primary" *ngIf="post.user?.id === user.id">
-      <div class="d-inline-block" ngbDropdown>
+    <div class="post-actions-container hover-primary" *ngIf="post.user?.id === user?.id">
+      <div class="d-inline-block" ngbDropdown container="body">
         <i class="fa-solid fa-ellipsis-vertical" id="post-actions" ngbDropdownToggle></i>
 
         <div ngbDropdownMenu aria-labelledby="post-actions">
