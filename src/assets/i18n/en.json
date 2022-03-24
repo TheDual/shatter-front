@@ -54,7 +54,9 @@
     "and": "and",
     "more": "more",
     "friendsSharedThisPost": "friends shared this post",
-    "sharedThisPost": "shared this post"
+    "sharedThisPost": "shared this post",
+    "friendListIsEmpty": "Friend List is Empty",
+    "selectFriendToChat": "Select Friend to Chat"
   },
   "validation" : {
     "thisField": "This Field",

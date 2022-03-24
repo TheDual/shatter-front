@@ -1,0 +1,48 @@
+<div class="chats-container" *ngIf="user">
+  <app-chat [chatId]="chat.id"
+            [friend]="chat.friend"
+            *ngFor="let chat of chats"
+            (onCloseChat)="closeChat($event)"
+  >
+
+  </app-chat>
+
+  <div class="add-new-chat-container">
+    <div class="icon-container" *ngIf="!isSelectingFriend else selectingFriendTemplate">
+      <i class="fa-solid fa-comment-medical hover-secondary" (click)="toggleIsSelecting()"></i>
+    </div>
+
+    <ng-template #selectingFriendTemplate>
+      <div class="select-friend-container">
+        <div class="select-friend-header">
+          {{ 'mocks.selectFriendToChat' | translate }}
+          <div class="close-icon">
+            <i class="fa-solid fa-xmark hover-primary ml-2" (click)="toggleIsSelecting()"></i>
+          </div>
+        </div>
+          <div class="friend-list">
+            <ng-container *ngIf="user?.friends?.length else noFriendsTemplate">
+              <div class="friend pointer" *ngFor="let friend of user.friends" (click)="addChat(friend.id!)">
+                <div class="img-container user-picture-round">
+                  <img [src]="friend.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Friend Profile Photo">
+                </div>
+                <div class="friend-name">
+                  {{ friend.first_name || '-' }} {{ friend.last_name || '-' }}
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-template #noFriendsTemplate>
+              <div class="no-friends-text">
+                {{ 'mocks.friendListIsEmpty' | translate }}
+              </div>
+            </ng-template>
+          </div>
+
+
+      </div>
+    </ng-template>
+  </div>
+
+
+</div>

@@ -1,0 +1,107 @@
+.chats-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+
+  app-chat:not(:first-child) {
+    margin-left: var(--spacing-lg);
+  }
+}
+
+.add-new-chat-container {
+  display: flex;
+  align-items: flex-end;
+
+  .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg-dark);
+    border-radius: 50%;
+    color: var(--color-font-secondary);
+    font-size: 1.5rem;
+    width: 60px;
+    aspect-ratio: 1 / 1;
+    margin-bottom: var(--spacing-lg);
+    margin-inline: var(--spacing-lg);
+  }
+
+  .select-friend-container {
+    margin-left: var(--spacing-lg);
+    border: 1px solid var(--color-secondary);
+    border-bottom: none;
+    width: 300px;
+
+    .select-friend-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      background-color: var(--color-bg-dark);
+      color: var(--color-font-secondary);
+      padding-block: 5px;
+
+      .close-icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: var(--spacing-md);
+        color: var(--color-font-secondary);
+        font-size: 1.2rem;
+      }
+    }
+
+    .friend-list {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      overflow-y: auto;
+      align-items: center;
+      background-color: var(--color-bg);
+
+      .no-friends-text {
+        width: inherit;
+        height: 100%;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .friend {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+
+        &:hover {
+          background-color: var(--color-gray-light2);
+          transition: background-color .2s ease-out;
+
+          .friend-name {
+            color: var(--color-font-default);
+          }
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--color-secondary);
+        }
+
+        .img-container {
+          img {
+            max-width: 35px;
+            max-height: 35px;
+          }
+        }
+
+        .friend-name {
+          margin-left: var(--spacing-lg);
+          color: var(--color-font-secondary);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+
+<div class="chat-container" *ngIf="user && friend" [class.minimized]="isMinimized">
+  <div class="chat-header">
+    <div class="img-container user-picture-round chat-profile-container pointer"
+         [routerLink]="[SCREENS.PROFILE, friend?.id]">
+      <img [src]="friend.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Your Profile Picture">
+    </div>
+
+    <div class="user-credentials hover-primary" [routerLink]="[SCREENS.PROFILE, friend?.id]">
+      {{friend?.first_name || '-'}} {{friend?.last_name || '-'}}
+    </div>
+
+    <div class="chat-icons">
+      <i class="fa-solid fa-minus hover-primary" (click)="toggleMinimize()"></i>
+      <i class="fa-solid fa-xmark hover-primary ml-2" (click)="closeChat()"></i>
+    </div>
+  </div>
+  <div class="chat-body" #chatBody [scrollTop]="chatScrollHeight">
+    <div class="message"
+         *ngFor="let message of messages"
+         [ngClass]="message.senderId === user.id ? 'my-message' : 'friend-message'">
+      <div class="message-body custom-container">
+        {{ message.content }}
+      </div>
+      <div class="message-created-at">
+        {{ message.created_at }}
+      </div>
+    </div>
+  </div>
+  <div class="chat-footer">
+    <div class="send-message-body custom-contenteditable"
+         contenteditable="true"
+         data-placeholder="Aa"
+         (keydown.enter)="$event.preventDefault(); sendMessage()"
+         #messageBody>
+    </div>
+
+    <div class="send-message-icon hover-secondary" (click)="sendMessage()">
+      <i class="fa-solid fa-comment-dots"></i>
+    </div>
+  </div>
+</div>
