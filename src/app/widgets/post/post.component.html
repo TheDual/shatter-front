@@ -42,7 +42,7 @@
       <div class="user-credentials pointer hover-secondary" [routerLink]="[SCREENS.PROFILE, post.user.id]">
         {{ post.user.first_name }} {{ post.user.last_name }}
       </div>
-      <div class="created-at pointer hover-primary">
+      <div class="created-at pointer hover-primary" [routerLink]="[SCREENS.POST, post.id]">
         {{post.updated_at}}
       </div>
     </div>

@@ -12,6 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 import PostModel from '../../models/post.model';
 import { NotificationsService } from '../../services/notifiactions.service';
 import { InvitationStatus } from '../../models/invitation.model';
+import { ActivityService } from '../../services/activity.service';
+import * as moment from 'moment';
+import { ActionTypes } from '../../models/activity.model';
 
 export enum Views {
   GRID,
@@ -42,6 +45,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   view = Views.GRID;
   tab = Tabs.FRIENDS;
   SCREENS = SCREENS;
+  ACTIONS = ActionTypes;
 
   constructor(private authService: AuthService,
               private modalService: NgbModal,
@@ -50,7 +54,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private usersService: UsersService,
               private toastrService: ToastrService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private activityService: ActivityService) {
     this.genderTypes = this.enumsService.getObject(['gender']);
 
     this.route.params
@@ -61,7 +66,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
         this.view = +queryParams['view'] || Views.GRID;
         this.tab = +queryParams['tab'] || Tabs.FRIENDS;
-
 
         this.authService.user.subscribe(data => {
           if (data) {
@@ -93,9 +97,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
           return this.notificationsService.loadInvitationsBetweenUsers(userId, {status__in: [1]}).pipe(map(invitations => { return {...data, ...invitations }}))
         }),
+        switchMap((data: UserModel) => {
+          return this.activityService.getUserActivity(userId).pipe(map(activity => { return {...data, activity: activity }}))
+        }),
         map(data => {
           if (data.friends?.length && data.id !== this.currentUser!.id) {
             data.is_friend = data.friends.some(friend => friend.id === this.currentUser!.id);
+          }
+
+          if (data.activity?.length) {
+            data.activity.forEach(activity => {
+              activity['created_at'] = moment(activity['created_at']).local().format('YYYY-MM-DD HH:mm');
+            })
           }
           return data;
         }),

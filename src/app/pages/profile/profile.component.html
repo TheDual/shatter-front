@@ -25,6 +25,7 @@
       <div class="left-bar">
         <ng-container *ngTemplateOutlet="userInfoTemplate"></ng-container>
         <ng-container *ngTemplateOutlet="userFriendsTemplate"></ng-container>
+        <ng-container *ngTemplateOutlet="userActivityTemplate"></ng-container>
       </div>
 
       <div class="right-bar ml-3">
@@ -47,11 +48,7 @@
              (click)="changeTab(Tabs.FRIENDS)">
           {{ 'labels.friends' | translate }}
         </div>
-<!--        <div class="tab-item hover-secondary"-->
-<!--             [class.active]="tabs === 'posts'"-->
-<!--             (click)="changeTab('posts')">-->
-<!--          {{ 'labels.posts' | translate }}-->
-<!--        </div>-->
+
         <div class="tab-item hover-secondary"
              [class.active]="tab === Tabs?.ACTIVITY"
              (click)="changeTab(Tabs.ACTIVITY)">
@@ -64,10 +61,9 @@
           <ng-container *ngTemplateOutlet="userFriendsTemplate"></ng-container>
         </ng-container>
 
-<!--        <ng-container *ngSwitchCase="'posts'">-->
-<!--          <ng-container *ngTemplateOutlet="userPostsTemplate"></ng-container>-->
-<!--        </ng-container>-->
-        <ng-container *ngSwitchCase="Tabs?.ACTIVITY"></ng-container>
+        <ng-container *ngSwitchCase="Tabs?.ACTIVITY">
+          <ng-container *ngTemplateOutlet="userActivityTemplate"></ng-container>
+        </ng-container>
       </div>
     </div>
   </div>
@@ -145,7 +141,7 @@
       <h4 class="d-flex align-items-center" >
         {{ 'labels.friends' | translate }}
         <h5 *ngIf="userData!.friends?.length" class="ml-2 mb-0">
-          ({{ userData!.friends?.length }})
+          ({{ userData!.friends.length > 99 ? '+99' : userData!.friends.length }})
         </h5>
       </h4>
 
@@ -174,5 +170,59 @@
 <ng-template #userPostsTemplate>
   <div class="user-posts-container">
     <app-post [post]="post" *ngFor="let post of userData!.posts"></app-post>
+  </div>
+</ng-template>
+
+<ng-template #userActivityTemplate>
+  <div class="user-activity custom-container">
+
+    <div class="activity-header d-flex justify-content-between" *ngIf="view === Views?.GRID">
+      <h4 class="d-flex align-items-center" >
+        {{ 'labels.activity' | translate }}
+        <h5 *ngIf="userData!.activity?.length" class="ml-2 mb-0">
+          ({{ userData!.activity.length > 99 ? '+99' : userData!.activity?.length }})
+        </h5>
+      </h4>
+
+      <div class="see-all hover-primary" (click)="seeAll(Tabs.ACTIVITY)">
+        {{ 'buttons.seeAll' | translate }}
+      </div>
+    </div>
+
+    <div class="activities-container" *ngIf="userData?.activity?.length else userHasNoActivityTemplate">
+      <div class="activity" *ngFor="let activity of (view === Views?.GRID ? (userData!.activity | slice:0:5) : userData!.activity)">
+        <div class="timeline-item">
+          <div class="timeline-data">
+            <div>{{ activity.created_at | date:'HH:mm' }}</div>
+            <div>{{ activity.created_at | date:'shortDate' }}</div>
+          </div>
+        </div>
+        <div class="activity-body">
+          <div class="img-container user-picture-round">
+            <img [src]="activity.user.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="User Profile Photo">
+          </div>
+
+          <div class="user-credentials">
+            {{activity.user?.first_name || '-'}} {{activity.user?.last_name || '-'}}&nbsp;
+          </div>
+
+          <div class="action-type" [ngSwitch]="+activity.action">
+            <span *ngSwitchCase="ACTIONS.ADD_POST">{{ 'mocks.addedNew' | translate }} <a class="hover-secondary" [routerLink]="[SCREENS.POST, activity.post!.id]">{{ 'labels.post' | translate }}</a></span>
+            <span *ngSwitchCase="ACTIONS.ADD_FRIEND">
+              {{ 'mocks.added' | translate }}
+               <a class="hover-secondary" [routerLink]="[SCREENS.PROFILE, activity.friend!.id]">{{activity.friend!.first_name || '-'}} {{activity.friend!.last_name || '-'}}</a>
+               {{ 'mocks.toFriends' | translate }}
+            </span>
+            <span *ngSwitchCase="ACTIONS.ADD_COMMENT">{{ 'mocks.commented' | translate }} {{ 'mocks.this' | translate }} <a class="hover-secondary" [routerLink]="[SCREENS.POST, activity.post!.id]">{{ 'labels.post' | translate }}</a></span>
+            <span *ngSwitchCase="ACTIONS.SHARE_POST">{{ 'mocks.shared' | translate }} {{ 'mocks.this' | translate }} <a class="hover-secondary" [routerLink]="[SCREENS.POST, activity.post!.id]">{{ 'labels.post' | translate }}</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #userHasNoActivityTemplate>
+      {{ 'mocks.userHasNoActivity' | translate }}
+    </ng-template>
+
   </div>
 </ng-template>

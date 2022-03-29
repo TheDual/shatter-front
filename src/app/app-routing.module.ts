@@ -8,6 +8,7 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { NotificationsDetailsComponent } from './pages/notifications/notifications-details/notifications-details.component';
 import { RouteGuard } from './services/route-guard.service';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { PostDetailsComponent } from './pages/post/post-details.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
         component: NotificationsDetailsComponent
       }
     ]
+  },
+  {
+    path: 'post/:id',
+    component: PostDetailsComponent,
+    canActivate: [RouteGuard]
   },
   {
     path: 'settings',

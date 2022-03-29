@@ -35,6 +35,7 @@ import { NotificationsDetailsComponent } from './pages/notifications/notificatio
 import { ChatsComponent } from './widgets/chats/chats.component';
 import { ChatComponent } from './widgets/chats/chat/chat.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { PostDetailsComponent } from './pages/post/post-details.component';
 
 localStorage.getItem('language') === 'en-en' ? registerLocaleData(localeEs) : '';
 
@@ -59,7 +60,8 @@ localStorage.getItem('language') === 'en-en' ? registerLocaleData(localeEs) : ''
     NotificationsDetailsComponent,
     ChatsComponent,
     ChatComponent,
-    SettingsComponent
+    SettingsComponent,
+    PostDetailsComponent
   ],
   imports: [
     BrowserModule,

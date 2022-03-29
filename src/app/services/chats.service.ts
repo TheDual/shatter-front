@@ -23,15 +23,8 @@ export class ChatsService extends BaseModelService {
       if (user) {
         this.user = user;
         this.socket = io(enviroment.apiChatUrl);
-
-        this.socket.on('connect', () => {
-          console.log('CONNECTED', this.socket.id)
-        })
-
-
       }
     })
-
   }
 
   sendMessage(chatId: number, content: string) {
@@ -43,7 +36,6 @@ export class ChatsService extends BaseModelService {
   }
 
   joinChat(chatId: number) {
-    console.log('JOIN CHAT', chatId);
     this.socket?.emit('join-chat', chatId);
   }
 

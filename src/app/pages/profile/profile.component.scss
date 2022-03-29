@@ -104,17 +104,18 @@
   }
 }
 
+
+h4 {
+  color: var(--color-font-secondary);
+}
+
+.see-all {
+  color: var(--color-font-secondary);
+}
+
 .user-friends {
   margin-top: var(--spacing-md);
   display: block;
-
-  h4 {
-    color: var(--color-font-secondary);
-  }
-
-  .see-all {
-    color: var(--color-font-secondary);
-  }
 
   .friends-container {
     display: grid;
@@ -153,6 +154,82 @@
       grid-template-columns: 1fr !important;
     }
   }
+}
+
+.user-activity {
+  margin-top: var(--spacing-md);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: var(--spacing-lg);
+
+  .activities-container {
+
+    .activity {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .timeline-item {
+        margin-left: -10px;
+        width: 60px;
+        aspect-ratio: 1 / 1;
+        font-size: .7rem;
+
+        justify-content: center;
+        position: relative;
+        border-right: 2px solid var(--color-secondary);
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 15px;
+          height: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+          right: -9px;
+          border-radius: 100%;
+          background-color: var(--color-bg-dark);
+          border: 5px solid var(--color-secondary-light);
+        }
+
+        .timeline-data {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          transform: rotate(-30deg) translate(-40%, 70%);
+        }
+      }
+
+
+      .activity-body {
+        margin-left: 30px;
+        display: flex;
+        align-items: center;
+        --img-size: 40px;
+
+        .img-container {
+          img {
+            width: var(--img-size);
+            max-height: var(--img-size);
+          }
+        }
+
+        .user-credentials {
+          font-size: 1.1em;
+          margin-left: var(--spacing-sm);
+        }
+
+        .action-type {
+          font-size: 1.1em;
+
+          a {
+            color: var(--color-font-secondary);
+          }
+        }
+      }
+    }
+  }
+
 }
 
 .user-posts-container {
@@ -197,6 +274,7 @@
 
   .user-friends {
     padding-inline: 0;
+
     .friends-container {
       .friend {
         --img-size: 120px;

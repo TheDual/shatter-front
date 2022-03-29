@@ -2,6 +2,7 @@ import ProfileModel from './profile.model';
 import LikeModel from './like.model';
 import PostModel from './post.model';
 import InvitationModel from './invitation.model';
+import ActivityModel from './activity.model';
 
 export default class UserModel {
   id?: number;
@@ -16,5 +17,6 @@ export default class UserModel {
   posts: PostModel[]
   invitations_sent: InvitationModel[];
   invitations_received: InvitationModel[];
+  activity: ActivityModel[];
   is_friend = false;
 }

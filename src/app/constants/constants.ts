@@ -6,7 +6,8 @@ export enum SCREENS {
   REGISTER = '/register',
   PROFILE = '/profile',
   NOTIFICATIONS = '/notifications',
-  SETTINGS = '/settings'
+  SETTINGS = '/settings',
+  POST = '/post'
 }
 
 export enum VoteState {

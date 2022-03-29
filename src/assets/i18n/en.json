@@ -20,8 +20,7 @@
     "posts": "Posts",
     "activity": "Activity",
     "language": "Language",
-    "theme": "Theme",
-    "settings": "Settings"
+    "theme": "Theme"
   },
   "buttons": {
     "login": "Login",
@@ -60,7 +59,14 @@
     "friendsSharedThisPost": "friends shared this post",
     "sharedThisPost": "shared this post",
     "friendListIsEmpty": "Friend List is Empty",
-    "selectFriendToChat": "Select Friend to Chat"
+    "selectFriendToChat": "Select Friend to Chat",
+    "userHasNoActivity": "User has no Activity",
+    "added": "added",
+    "addedNew": "added new",
+    "toFriends": "to friends",
+    "this": "this",
+    "commented": "commented",
+    "shared": "shared"
   },
   "validation" : {
     "thisField": "This Field",

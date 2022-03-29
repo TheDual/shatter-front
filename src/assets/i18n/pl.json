@@ -60,7 +60,14 @@
     "friendsSharedThisPost": "znajomych udostępniło ten post",
     "sharedThisPost": "udostępnił ten post",
     "friendListIsEmpty": "Lista znajomych jest pusta",
-    "selectFriendToChat": "Wybierz znajomego do czatu"
+    "selectFriendToChat": "Wybierz znajomego do czatu",
+    "userHasNoActivity": "Użytkownik nie ma żadnej aktywności",
+    "added": "dodał",
+    "addedNew": "dodał nowy",
+    "toFriends": "do znajomych",
+    "this": "ten",
+    "commented": "skomentował",
+    "shared": "udostępnił"
   },
   "validation" : {
     "thisField": "To pole",
