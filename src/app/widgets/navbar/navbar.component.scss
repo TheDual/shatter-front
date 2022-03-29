@@ -1,7 +1,7 @@
 :host {
   width: 100%;
   background-color: var(--color-bg-dark);
-  color: white;
+  color: var(--color-font-default);
   font-weight: bold;
   padding: 0 40px;
   position: fixed;
@@ -184,4 +184,29 @@
 @keyframes notification_badge_outline_color {
   0% { outline-color: var(--color-secondary); }
   100% { outline-color: var(--color-secondary-light); }
+}
+
+
+@media screen and(max-width: 700px) {
+  .navbar-container {
+    & > div:first-child {
+      display: none;
+    }
+    justify-content: space-between;
+
+    .logo-container {
+      justify-content: flex-start !important;
+    }
+  }
+}
+
+
+@media screen and(max-width: 472px) {
+  :host {
+    padding-inline: 10px;
+  }
+
+  .logo-text {
+    display: none;
+  }
 }

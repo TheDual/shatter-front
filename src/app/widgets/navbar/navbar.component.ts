@@ -7,6 +7,7 @@ import { convertToBlob } from '../../constants/utils';
 import { map } from 'rxjs';
 import { NotificationsService } from '../../services/notifiactions.service';
 import InvitationModel from '../../models/invitation.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -44,9 +45,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('auth');
-    this.authService.user.next(null);
-    this.toastrService.success('Logged out');
+    this.authService.logout();
   }
 
   toggleDropdown(event: any) {

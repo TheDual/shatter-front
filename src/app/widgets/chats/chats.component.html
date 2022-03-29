@@ -1,7 +1,7 @@
 <div class="chats-container" *ngIf="user">
-  <app-chat [chatId]="chat.id"
-            [friend]="chat.friend"
-            *ngFor="let chat of chats"
+  <app-chat [chat]="chat"
+            [user]="user"
+            *ngFor="let chat of chats | slice:0:numberOfChats"
             (onCloseChat)="closeChat($event)"
   >
 
@@ -38,8 +38,6 @@
               </div>
             </ng-template>
           </div>
-
-
       </div>
     </ng-template>
   </div>

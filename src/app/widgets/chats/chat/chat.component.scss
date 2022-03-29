@@ -124,4 +124,20 @@
   }
 }
 
+.highlighted {
+  &.chat-container {
+    animation: highlight_border_color .4s alternate infinite;
+  }
+}
+
+@keyframes highlight_border_color {
+  0% {
+    border-color: var(--color-secondary);
+    box-shadow: none;
+  }
+  100% {
+    border-color: var(--color-secondary-light);
+    box-shadow: 0 0 5px 1px var(--color-secondary-light);
+  }
+}
 

@@ -1,0 +1,23 @@
+<div class="settings-container custom-container">
+  <h3 class="mb-4">{{ 'labels.settings' | translate }}</h3>
+  <div class="setting">
+    <label>{{ 'labels.language' | translate }}</label>
+    <ng-select [items]="languages"
+               bindLabel="name"
+               [(ngModel)]="currentLanguage">
+    </ng-select>
+  </div>
+
+  <div class="setting">
+    <label>{{ 'labels.theme' | translate }}</label>
+    <ng-select [items]="themes"
+               bindLabel="name"
+               [(ngModel)]="currentTheme">
+    </ng-select>
+  </div>
+
+  <div class="buttons-container mt-5 d-flex justify-content-between">
+    <button class="custom-button" (click)="restoreDefault()">{{ 'buttons.restoreToDefault' | translate }}</button>
+    <button class="custom-button custom-button-secondary" (click)="onSettingsSave()">{{ 'buttons.save' | translate }}</button>
+  </div>
+</div>

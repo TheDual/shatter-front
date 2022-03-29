@@ -44,7 +44,7 @@ ng-select {
   font-size: 1.1rem;
 
   position: relative;
-  border-bottom: 1px solid #FFF;
+  border-bottom: 1px solid var(--color-font-default);
 
   &:focus {
     border: none;
@@ -77,8 +77,8 @@ textarea {
 
 input[type="button"], button.custom-button {
   background-color: transparent;
-  color: #FFF;
-  border: 2px solid #FFF;
+  color: var(--color-font-default);
+  border: 2px solid var(--button-color);
   padding: 5px 10px;
   min-width: 120px;
   font-weight: bold;
@@ -95,10 +95,9 @@ input[type="button"], button.custom-button {
 }
 
 button.custom-button-secondary {
-  background-color: #FFF;
-  border-color: #FFF;
-  color: #000;
-
+  background-color: var(--button-color);
+  border-color: var(--button-color);
+  color: var(--color-primary);
 }
 
 a {

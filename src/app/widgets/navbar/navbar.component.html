@@ -65,7 +65,7 @@
           <div class="menu-items  user-select-none">
             <div class="menu-item" [routerLink]="[SCREENS.PROFILE]">{{ 'buttons.profile' | translate }}</div>
             <div class="menu-item" [routerLink]="[SCREENS.NOTIFICATIONS]">{{ 'buttons.notifications' | translate }}</div>
-            <div class="menu-item">{{ 'buttons.settings' | translate }}</div>
+            <div class="menu-item" [routerLink]="[SCREENS.SETTINGS]">{{ 'buttons.settings' | translate }}</div>
             <div class="menu-item" (click)="logout()">{{ 'buttons.logout' | translate }}</div>
           </div>
 

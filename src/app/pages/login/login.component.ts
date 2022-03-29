@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { map, Subject, takeUntil } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { emailRegexp, SCREENS } from '../../constants/constants';
 import { ToastrService } from 'ngx-toastr';
 import { convertToBlob } from '../../constants/utils';
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
               private router: Router,
+              private route: ActivatedRoute,
               private toastrService: ToastrService) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern(emailRegexp)]),
@@ -39,12 +40,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         next: data => {
           localStorage.setItem('auth', data.token);
           this.authService.user.next(data.user);
-          this.router.navigate([SCREENS.MAIN]);
+          const returnURL = this.route.snapshot.queryParams['returnUrl'] || null;
+
+          if (returnURL) window.location.href = returnURL;
+          else this.router.navigate([SCREENS.MAIN]);
+
           this.toastrService.success('Logged in!');
         },
         error: err => {
           console.log(err);
-          console.log('zzz');
           this.toastrService.error(err?.error?.message || 'Something went wrong');
         }
       })

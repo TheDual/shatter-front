@@ -16,42 +16,39 @@ import { SCREENS } from '../../../constants/constants';
 export class ChatComponent implements OnInit, OnDestroy {
   @ViewChild('messageBody') messageBody: ElementRef;
   @ViewChild('chatBody') chatBody: ElementRef;
-
-  @Input() chatId: number;
-  @Input() friend: UserModel;
+  @Input() user: UserModel
+  @Input() chat: {id: number, friend: UserModel, highlighted?: boolean};
   @Output() onCloseChat = new EventEmitter<number>();
 
 
   unsubscribe$ = new Subject<void>();
   messages: MessageModel[] = [];
-  user: UserModel
   SCREENS = SCREENS;
   chatScrollHeight: number = 0;
   isMinimized = false;
 
   constructor(private chatsService: ChatsService,
-              private toastrService: ToastrService,
-              private authService: AuthService) {
-    this.authService.user.subscribe(user => {
-      if (user) {
-        this.user = user;
-      }
-    })
+              private toastrService: ToastrService) {
   }
 
   ngOnInit(): void {
-    if (this.chatId) {
-      this.chatsService.joinChat(this.chatId);
+    if (this.chat?.id) {
+      this.chatsService.joinChat(this.chat.id);
 
       this.chatsService.socket?.on('receive-message', (message: MessageModel) => {
-        if (message?.chat === this.chatId) {
+        if (message?.chat === this.chat.id) {
+          this.chat.highlighted = true;
+          setTimeout(() => {
+            this.chat.highlighted = false;
+          }, 2000);
+
           this.mapMessageDate(message);
           this.messages.push(message);
           this.scrollToBottom();
         }
       })
 
-      this.chatsService.getChatMessages(this.chatId)
+      this.chatsService.getChatMessages(this.chat.id)
         .pipe(takeUntil(this.unsubscribe$),
               map(messages => {
                 if (messages?.length) {
@@ -86,12 +83,12 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     if (!value) return;
 
-    this.chatsService.sendMessage(this.chatId, value);
+    this.chatsService.sendMessage(this.chat?.id, value);
     this.messageBody.nativeElement.textContent = '';
   }
 
   closeChat() {
-    this.onCloseChat.emit(this.chatId);
+    this.onCloseChat.emit(this.chat?.id);
   }
 
   toggleMinimize() {

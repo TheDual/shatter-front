@@ -18,7 +18,10 @@
     "canceled": "Canceled",
     "friends": "Friends",
     "posts": "Posts",
-    "activity": "Activity"
+    "activity": "Activity",
+    "language": "Language",
+    "theme": "Theme",
+    "settings": "Settings"
   },
   "buttons": {
     "login": "Login",
@@ -40,7 +43,8 @@
     "removeFromFriends": "Remove From Friends",
     "acceptFriendRequest": "Accept Friend Request",
     "rejectFriendRequest": "Reject Friend Request",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "restoreToDefault": "Restore to Default"
   },
   "mocks": {
     "forgotPassword": "Forgot Password",

@@ -6,10 +6,13 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { NotificationsDetailsComponent } from './pages/notifications/notifications-details/notifications-details.component';
+import { RouteGuard } from './services/route-guard.service';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
   {
     path: 'main',
+    canActivate: [RouteGuard],
     component: MainComponent,
   },
   {
@@ -22,6 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [RouteGuard],
     children: [
       {
         path: '',
@@ -35,6 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'notifications',
+    canActivate: [RouteGuard],
     children: [
       {
         path: '',
@@ -45,6 +50,10 @@ const routes: Routes = [
         component: NotificationsDetailsComponent
       }
     ]
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
   },
   {
     path: '**',

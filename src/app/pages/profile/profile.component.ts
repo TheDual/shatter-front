@@ -106,7 +106,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe({
         next: data => {
           this.userData = data;
-          console.log(data);
         },
         error: err => {
           console.log(err);
@@ -123,7 +122,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }, error => {
 
     })
-
   }
 
   changeView(viewType: Views) {

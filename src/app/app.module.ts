@@ -34,8 +34,9 @@ import { AngularResizeEventModule } from 'angular-resize-event';
 import { NotificationsDetailsComponent } from './pages/notifications/notifications-details/notifications-details.component';
 import { ChatsComponent } from './widgets/chats/chats.component';
 import { ChatComponent } from './widgets/chats/chat/chat.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
-localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
+localStorage.getItem('language') === 'en-en' ? registerLocaleData(localeEs) : '';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ localStorage.getItem('translate') === 'es' ? registerLocaleData(localeEs) : '';
     NotificationComponent,
     NotificationsDetailsComponent,
     ChatsComponent,
-    ChatComponent
+    ChatComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

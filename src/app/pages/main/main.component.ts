@@ -56,7 +56,6 @@ export class MainComponent implements OnInit, OnDestroy {
       .subscribe({
         next: data => {
           this.posts = data;
-          console.log(this.posts);
         },
         error: err => {
           this.toastrService.error(err?.error?.message || 'Something went wrong')

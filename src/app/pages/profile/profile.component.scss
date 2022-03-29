@@ -233,6 +233,11 @@
     .spacer {
       display: none;
     }
+
+    .right-bar {
+      margin-left: 0 !important;
+      margin-top: var(--spacing-lg);
+    }
   }
 }
 

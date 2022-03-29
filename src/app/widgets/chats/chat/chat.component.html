@@ -1,13 +1,14 @@
-
-<div class="chat-container" *ngIf="user && friend" [class.minimized]="isMinimized">
+<div class="chat-container" *ngIf="user && chat?.friend"
+     [class.minimized]="isMinimized"
+     [class.highlighted]="chat.highlighted">
   <div class="chat-header">
     <div class="img-container user-picture-round chat-profile-container pointer"
-         [routerLink]="[SCREENS.PROFILE, friend?.id]">
-      <img [src]="friend.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Your Profile Picture">
+         [routerLink]="[SCREENS.PROFILE, chat?.friend?.id]">
+      <img [src]="chat?.friend?.profile?.image?.file_path || '/assets/images/mock_avatar.png'" alt="Your Profile Picture">
     </div>
 
-    <div class="user-credentials hover-primary" [routerLink]="[SCREENS.PROFILE, friend?.id]">
-      {{friend?.first_name || '-'}} {{friend?.last_name || '-'}}
+    <div class="user-credentials hover-primary" [routerLink]="[SCREENS.PROFILE, chat?.friend?.id]">
+      {{chat?.friend?.first_name || '-'}} {{chat?.friend?.last_name || '-'}}
     </div>
 
     <div class="chat-icons">

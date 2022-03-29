@@ -4,6 +4,9 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import UserModel from '../models/user.model';
 import enviroment from '../enviroment';
 import { convertToBlob } from '../constants/utils';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { SCREENS } from '../constants/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,9 @@ export class AuthService extends BaseModelService {
   user = new BehaviorSubject<UserModel | null>(null);
   tokenChecked = new BehaviorSubject<any>(false);
 
-  constructor(private inj: Injector) {
+  constructor(private inj: Injector,
+              private toastrService: ToastrService,
+              private router: Router) {
     super(inj, 'auth')
 
     if (!this.tokenChecked.value) {
@@ -51,5 +56,12 @@ export class AuthService extends BaseModelService {
 
   getMe(): Observable<UserModel> {
     return this.http.get<UserModel>(enviroment.apiUrl + 'auth/get_me');
+  }
+
+  logout() {
+    localStorage.removeItem('auth');
+    this.user.next(null);
+    this.toastrService.success('Logged out');
+    this.router.navigate([SCREENS.LOGIN]);
   }
 }

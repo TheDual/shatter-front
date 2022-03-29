@@ -1,0 +1,18 @@
+:host {
+  width: 50%;
+  margin-inline: auto;
+}
+.settings-container {
+
+  .setting {
+    font-size: 1.3rem;
+    &:not(:first-child) {
+      margin-top: 30px;
+    }
+
+  }
+
+  .buttons-container {
+    width: 100%;
+  }
+}
