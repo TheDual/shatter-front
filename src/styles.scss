@@ -96,7 +96,7 @@ body {
   img {
     object-fit: cover;
     width: 60px;
-    max-height: 60px;
+    height: 60px;
     border-radius: 100%;
   }
 }
@@ -159,6 +159,7 @@ body {
   .dropdown-menu {
     max-height: 150px;
     overflow-y: auto;
+    width: 250px;
   }
 
   .friend {
@@ -166,8 +167,7 @@ body {
     align-items: center;
     white-space: normal;
     padding-block: 10px;
-    width: 100%;
-    max-width: 200px;
+
 
     padding-inline: 10px;
     word-break: break-word;
@@ -175,9 +175,10 @@ body {
 
     .img-container {
       margin-right: var(--spacing-md);
+
       img {
-        max-width: 30px;
-        max-height: 30px;
+        width: 30px;
+        height: 30px;
       }
     }
 

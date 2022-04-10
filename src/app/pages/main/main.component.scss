@@ -24,8 +24,8 @@
   --img-size: 55px;
   .post-profile-container {
     img {
-      max-width: var(--img-size);
-      max-height: var(--img-size);
+      width: var(--img-size);
+      height: var(--img-size);
     }
   }
   .add-post-body {

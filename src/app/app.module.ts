@@ -1,6 +1,5 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { APP_INITIALIZER, Injector, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './widgets/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,10 +8,10 @@ import { NgbDateParserFormatter, NgbDatepickerModule, NgbModule } from '@ng-boot
 import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ValdemortModule } from 'ngx-valdemort';
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { CommonModule, LOCATION_INITIALIZED, registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,9 +35,29 @@ import { ChatsComponent } from './widgets/chats/chats.component';
 import { ChatComponent } from './widgets/chats/chat/chat.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { PostDetailsComponent } from './pages/post/post-details.component';
+import { resolve } from '@angular/compiler-cli';
 
 localStorage.getItem('language') === 'en-en' ? registerLocaleData(localeEs) : '';
 
+export function initializerFactory(translate: TranslateService, injector: Injector) {
+  return () => new Promise((resolve: any) => {
+    const locationInitialized  = injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
+    locationInitialized.then(() => {
+      const lang = localStorage.getItem('language') || 'en';
+      translate.setDefaultLang(lang);
+      translate.use(lang).subscribe({
+          next: () => {
+            console.log('Language initialized!');
+          },
+          error: (err) => {
+            console.log('Language initialization failed!', err);
+          },
+          complete: () => resolve(null)
+        }
+      )
+    })
+  })
+}
 
 @NgModule({
   declarations: [
@@ -96,12 +115,13 @@ localStorage.getItem('language') === 'en-en' ? registerLocaleData(localeEs) : ''
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializerFactory,
+      deps: [TranslateService, Injector],
+      multi: true
     }
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true
-    // },
   ],
   bootstrap: [AppComponent]
 })

@@ -20,7 +20,10 @@
     "posts": "Posts",
     "activity": "Activity",
     "language": "Language",
-    "theme": "Theme"
+    "theme": "Theme",
+    "settings":  "Settings",
+    "dark": "Dark",
+    "light": "Light"
   },
   "buttons": {
     "login": "Login",

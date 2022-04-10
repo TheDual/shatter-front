@@ -115,6 +115,7 @@ export class EditProfileDataModalComponent implements OnInit, OnDestroy {
     })
 
     payload['user_data'] = JSON.stringify(payload['user_data']);
+    console.log(payload);
     const formData = toFormData(payload);
     this.profilesService.updateProfile(formData)
       .pipe(takeUntil(this.unsubscribe$))

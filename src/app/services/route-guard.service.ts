@@ -23,7 +23,7 @@ export class RouteGuard implements CanActivate {
 
       const token = localStorage.getItem('auth')
       if (!token) {
-        this.toastrService.error('Token is missing');
+        this.toastrService.error('This action requires you to be logged it.');
         this.router.navigate([SCREENS.LOGIN], {queryParams: {returnUrl: state.url}});
         resolve(true);
         return;

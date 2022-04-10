@@ -135,7 +135,7 @@ export const toFormData = ( formValue: any ) => {
   const formData = new FormData();
 
   for ( const key of Object.keys(formValue) ) {
-    const value = formValue[key] || '';
+    const value = formValue[key] !== undefined ? formValue[key] : '';
     formData.append(key, value);
   }
 

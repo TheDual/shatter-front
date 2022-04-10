@@ -132,7 +132,7 @@ h4 {
       .img-container {
         img {
           width: var(--img-size);
-          max-height: var(--img-size);
+          height: var(--img-size);
         }
       }
 
@@ -210,7 +210,7 @@ h4 {
         .img-container {
           img {
             width: var(--img-size);
-            max-height: var(--img-size);
+            height: var(--img-size);
           }
         }
 
@@ -277,7 +277,7 @@ h4 {
 
     .friends-container {
       .friend {
-        --img-size: 120px;
+        --img-size: 110px;
         font-size: 1.3rem;
 
         .friend-name {

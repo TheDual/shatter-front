@@ -6,11 +6,11 @@ export enum InvitationStatus {
   REJECTED,
   CANCELED
 }
+
 export enum InvitationTypes {
   SENT,
   RECEIVED
 }
-
 
 export default class InvitationModel {
   id: number;

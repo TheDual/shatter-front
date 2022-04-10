@@ -21,7 +21,9 @@
     "activity": "Aktywność",
     "language": "Język",
     "theme": "Motyw",
-    "settings": "Ustawienia"
+    "settings": "Ustawienia",
+    "dark": "Ciemny",
+    "light": "Jasny"
   },
   "buttons": {
     "login": "Login",

@@ -13,10 +13,7 @@ export class SettingsComponent implements OnInit {
     {id: 1, code: 'pl', name: 'Polski'},
   ];
 
-  themes = [
-    {id: 0, value: 'dark', name: 'Dark'},
-    {id: 1, value: 'light', name: 'Light'},
-  ];
+  themes: {id: number, value: string, name: string}[] = [];
 
   currentLanguage: any;
   currentTheme: any;
@@ -26,11 +23,16 @@ export class SettingsComponent implements OnInit {
     const language = localStorage.getItem('language') || 'en';
     this.currentLanguage = this.languages.find(l => l.code === language);
 
+    this.themes = [
+      {id: 0, value: 'dark', name: this.translateService.instant('labels.dark')},
+      {id: 1, value: 'light', name: this.translateService.instant('labels.light')},
+    ];
+
     const theme = document.body.getAttribute('data-theme') || 'dark';
     this.currentTheme = this.themes.find(t => t.value === theme);
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   onSettingsSave() {

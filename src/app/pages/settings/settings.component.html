@@ -4,6 +4,7 @@
     <label>{{ 'labels.language' | translate }}</label>
     <ng-select [items]="languages"
                bindLabel="name"
+               [clearable]="false"
                [(ngModel)]="currentLanguage">
     </ng-select>
   </div>
@@ -12,6 +13,7 @@
     <label>{{ 'labels.theme' | translate }}</label>
     <ng-select [items]="themes"
                bindLabel="name"
+               [clearable]="false"
                [(ngModel)]="currentTheme">
     </ng-select>
   </div>

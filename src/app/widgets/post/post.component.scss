@@ -33,8 +33,8 @@
     }
 
     img {
-      max-width: 30px;
-      max-height: 30px;
+      width: 30px;
+      height: 30px;
     }
   }
 
@@ -170,8 +170,8 @@
       .comment-picture {
         margin-right: var(--spacing-md);
         img {
-          max-width: var(--user-picture-size);
-          max-height: var(--user-picture-size);
+          width: var(--user-picture-size);
+          height: var(--user-picture-size);
         }
       }
 
@@ -223,10 +223,11 @@
 
   .comment-profile-picture {
     img {
-      max-width: 45px;
-      max-height: 45px;
+      width: 45px;
+      height: 45px;
     }
   }
+
   .comment-body{
     max-width: calc(100% - 45px);
     word-wrap: break-word;
