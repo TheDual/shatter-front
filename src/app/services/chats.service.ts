@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseModelService } from './base-model.service';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import enviroment from '../enviroment';
 import { AuthService } from './auth.service';
 import UserModel from '../models/user.model';
@@ -12,7 +12,7 @@ import ChatModel from '../models/chat.model';
   providedIn: 'root'
 })
 export class ChatsService extends BaseModelService {
-  socket: any;
+  socket: Socket;
   user: UserModel;
 
   constructor(private inj: Injector,

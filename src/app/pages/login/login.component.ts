@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.toastrService.error(err?.error?.message || 'Something went wrong');
         }
       })
-
   }
 
 

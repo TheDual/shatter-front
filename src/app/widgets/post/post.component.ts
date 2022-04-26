@@ -50,14 +50,16 @@ export class PostComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (!this.post) return;
 
-    this.post['created_at'] = moment(this.post['created_at']).local().format('YYYY-MM-DD HH:mm');
-    this.post['updated_at'] = moment(this.post['updated_at']).local().format('YYYY-MM-DD HH:mm');
-    this.post.comments?.forEach(comment => this.mapCommentDate(comment));
+    this.mapDate(this.post);
+    this.post.comments?.forEach(comment => this.mapDate(comment));
   }
 
-  mapCommentDate(comment: CommentModel) {
-    comment.updated_at = moment(comment['updated_at']).local().format('YYYY-MM-DD HH:mm');
-    comment.created_at = moment(comment['created_at']).local().format('YYYY-MM-DD HH:mm');
+  mapDate(obj: any, keys = ['updated_at', 'created_at']) {
+    keys.forEach(key => {
+      if (obj[key]) {
+        obj[key] = moment(obj[key]).local().format('YYYY-MM-DD HH:mm');
+      }
+    });
   }
 
   onShareClick(target: any) {
@@ -91,7 +93,7 @@ export class PostComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: data => {
-          this.mapCommentDate(data);
+          this.mapDate(data);
           const modifiedCommentIndex = this.post.comments.findIndex(comment => comment.id === commentId);
           if (modifiedCommentIndex > -1) {
             this.post.comments[modifiedCommentIndex] = data;
@@ -117,7 +119,7 @@ export class PostComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data: any) => {
           this.commentBody.nativeElement.textContent = '';
-          this.mapCommentDate(data);
+          this.mapDate(data);
           this.post.comments.push(data);
         },
         error: err => {
@@ -135,7 +137,7 @@ export class PostComponent implements OnInit, OnDestroy {
     modalRef.result.then(res => {
       if (res?.success && res?.post) {
         this.post = res.post;
-        this.post.comments?.forEach(comment => this.mapCommentDate(comment));
+        this.post.comments?.forEach(comment => this.mapDate(comment));
       }
     }, err => {})
   }

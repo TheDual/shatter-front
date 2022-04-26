@@ -109,8 +109,6 @@ export class ChatsComponent implements OnInit, OnDestroy {
     if (elWidth < 1600) this.numberOfChats = 3;
     if (elWidth < 1300) this.numberOfChats = 2;
     if (elWidth < 1000) this.numberOfChats = 1;
-
-    console.log(this.chats);
   }
 
   ngOnDestroy() {

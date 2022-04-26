@@ -33,15 +33,10 @@ export class TokenInterceptor implements HttpInterceptor {
     }, (error: any) => {
       console.log(error);
       if (error instanceof HttpErrorResponse) {
-        if (error.status === 401) {
-          // TODO: clear token data
-        }
-
         if (error.status === 403) {
           this.router.navigate([SCREENS.LOGIN], {queryParams: {returnUrl: window.location.href.replace(window.location.origin, '')}})
         }
       }
-
     }));
   }
 }
